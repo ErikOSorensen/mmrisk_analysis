@@ -46,3 +46,7 @@ data_raw/README.md
 
 # Not including the targets cache
 _targets/
+
+# No need for a html-readme.
+README.html
+

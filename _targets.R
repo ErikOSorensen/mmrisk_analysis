@@ -20,24 +20,29 @@ DATA_DOI <- "10.7910/DVN/YCRFK1"
 
 # End this file with a list of target objects.
 
-read_fn <- purrr::partial(readr::read_csv, guess_max=Inf)
+writeBin_return_name <- function(obj, fname) {
+  writeBin(obj, fname)
+  fname
+}
 
 list(
   tar_target(answers_raw, 
-             get_file_by_name("answers.tab", DATA_DOI) |> writeBin(here::here("data_raw","answers.csv"))
+             get_file_by_name("answers.tab", DATA_DOI) |> writeBin_return_name(here::here("data_raw","answers.csv")),
+             format = "file"
   ),
   tar_target(decisions_raw,
-             get_file_by_name("decisions.tab", DATA_DOI) |> writeBin(here::here("data_raw","decisions.csv"))
+             get_file_by_name("decisions.tab", DATA_DOI) |> writeBin_return_name(here::here("data_raw","decisions.csv")),
+             format = "file"
   ),
   tar_target(players_raw, 
-             get_file_by_name("players.tab", DATA_DOI) |> writeBin(here::here("data_raw","players.csv"))
+             get_file_by_name("players.tab", DATA_DOI) |> writeBin_return_name(here::here("data_raw","players.csv")),
+             format = "file"
   ),
   tar_target(readme_data_raw,
-             get_file_by_name("README.md", DATA_DOI ) |> writeBin(here::here("data_raw","README.md"))),
-  tar_target(answers,
-             read_answers(here::here("data_raw","answers.csv"))),
-  tar_target(decisions,
-             read_decisions(here::here("data_raw","decisions.csv"))),
-  tar_target(players,
-             read_players(here::here("data_raw","players.csv")))
+             get_file_by_name("README.md", DATA_DOI ) |> writeBin_return_name(here::here("data_raw","README.md")),
+             format = "file"
+  ),
+  tar_target(answers, read_answers(answers_raw)),
+  tar_target(decisions, read_decisions(decisions_raw)),
+  tar_target(players, read_players(players_raw))
 )
