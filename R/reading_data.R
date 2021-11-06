@@ -1,4 +1,3 @@
-
 read_players <- function(fname) {
   read_csv(fname) %>%
     mutate( psid = as.integer(psid),
@@ -74,3 +73,25 @@ dies <- tibble::tribble(
   8, 0, 240, 4/6,
   9, 0, 240, 5/6
 )
+
+# Preparing the list necessary for the rstan processing:
+preparing_estimation_data <- function(dframe, pframe, dies, treatment) {
+  ds <- dframe %>% 
+    full_join(dies, by="dienumber") %>%
+    left_join(pframe, by="psid") %>% 
+    dplyr::select(-c(created_at, status))
+  df_treatment <- ds %>% 
+    dplyr::filter(treatment==treatment) %>% 
+    mutate(id = as.numeric(as.factor(psid))) %>%
+    arrange(id,dienumber,safe_amount)
+  dl_treatment <- list( N = length(table(df_treatment$id)),
+                  D = nrow(df_treatment),
+                  ll = df_treatment$id,
+                  y = df_treatment$choice_risk,
+                  p2 = df_treatment$p2,
+                  y1 = df_treatment$y1,
+                  y2 = df_treatment$y2,
+                  s = df_treatment$safe_amount)
+  dl_treatment
+}
+

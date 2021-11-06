@@ -22,26 +22,26 @@ DATA_DOI <- "10.7910/DVN/YCRFK1"
 
 # End this file with a list of target objects.
 
-writeBin_return_name <- function(obj, fname) {
-  writeBin(obj, fname)
-  fname
-}
 
 list(
   tar_target(answers_raw, 
-             get_file_by_name("answers.tab", DATA_DOI) |> writeBin_return_name(here::here("data_raw","answers.csv")),
+             get_file_by_name("answers.tab", DATA_DOI) |> 
+               writeBin_return_name(here::here("data_raw","answers.csv")),
              format = "file"
   ),
   tar_target(decisions_raw,
-             get_file_by_name("decisions.tab", DATA_DOI) |> writeBin_return_name(here::here("data_raw","decisions.csv")),
+             get_file_by_name("decisions.tab", DATA_DOI) |> 
+               writeBin_return_name(here::here("data_raw","decisions.csv")),
              format = "file"
   ),
   tar_target(players_raw, 
-             get_file_by_name("players.tab", DATA_DOI) |> writeBin_return_name(here::here("data_raw","players.csv")),
+             get_file_by_name("players.tab", DATA_DOI) |> 
+               writeBin_return_name(here::here("data_raw","players.csv")),
              format = "file"
   ),
   tar_target(readme_data_raw,
-             get_file_by_name("README.md", DATA_DOI ) |> writeBin_return_name(here::here("data_raw","README.md")),
+             get_file_by_name("README.md", DATA_DOI ) |> 
+               writeBin_return_name(here::here("data_raw","README.md")),
              format = "file"
   ),
   tar_target(answers, read_answers(answers_raw)),
@@ -56,6 +56,10 @@ list(
                                        here::here("graphs","big_histogram.pdf"),
                                        width = 24,
                                        height = 16),
-             format = "file")
+             format = "file"),
+  tar_target(dl_now, preparing_estimation_data(decisions_complete, players_complete, dies, "now")),
+  tar_target(dl_short, preparing_estimation_data(decisions_complete, players_complete, dies, "short")),
+  tar_target(dl_long, preparing_estimation_data(decisions_complete, players_complete, dies, "long")),
+  tar_target(dl_never, preparing_estimation_data(decisions_complete, players_complete, dies, "never"))
 )
   

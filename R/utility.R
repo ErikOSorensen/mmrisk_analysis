@@ -9,3 +9,8 @@ save_plot_and_return_path <- function(obj,
          units = "cm")
   fname
 }
+
+writeBin_return_name <- function(obj, fname) {
+  writeBin(obj, fname)
+  fname
+}
