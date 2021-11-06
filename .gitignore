@@ -37,3 +37,9 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# Not including the raw data, which should be downloaded from Harvard
+# Dataverse.
+./data_raw/*.csv
+./data_raw/*.zip 
+./data_raw/README.md
