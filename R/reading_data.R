@@ -59,4 +59,18 @@ read_answers <- function(fname) {
            parent = (a_parent==1))
 }
 
-
+## Meaning of constants in raw data
+# The dies used in the experiment are characterized as such: 
+dies <- tibble::tribble(
+  ~dienumber, ~y1, ~y2, ~p2,
+  0, 0, 240, 1/6,
+  1, 0, 240, 2/6,
+  2, 0, 120, 2/6,
+  3, 120, 240, 2/6,
+  4, 60, 120, 2/6,
+  5, 80, 200, 2/6,
+  6, 180,240, 2/6,
+  7, 0, 240, 3/6,
+  8, 0, 240, 4/6,
+  9, 0, 240, 5/6
+)

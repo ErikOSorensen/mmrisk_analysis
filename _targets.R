@@ -11,9 +11,11 @@ library(targets)
 # if you keep your functions in external scripts.
 
 source(here::here("R","reading_data.R"))
+source(here::here("R","descriptives.R"))
+source(here::here("R","utility.R"))
 
 # Set target-specific options such as packages.
-tar_option_set(packages = c("tidyverse","dataverse"))
+tar_option_set(packages = c("tidyverse","dataverse","here"))
 
 Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
 DATA_DOI <- "10.7910/DVN/YCRFK1"
@@ -44,5 +46,16 @@ list(
   ),
   tar_target(answers, read_answers(answers_raw)),
   tar_target(decisions, read_decisions(decisions_raw)),
-  tar_target(players, read_players(players_raw))
+  tar_target(players, read_players(players_raw)),
+  tar_target(players_complete, players %>% dplyr::filter(status %in% c(50,110))),
+  tar_target(answers_complete, players_complete %>% dplyr::select(psid) %>% left_join(answers)),
+  tar_target(decisions_complete, players_complete %>% dplyr::select(psid) %>% left_join(decisions)),
+  tar_target(big_histogram_gg, big_histogram(decisions_complete, players_complete, dies)),
+  tar_target(big_histogram_pdf, 
+             save_plot_and_return_path(big_histogram_gg,
+                                       here::here("graphs","big_histogram.pdf"),
+                                       width = 24,
+                                       height = 16),
+             format = "file")
 )
+  
