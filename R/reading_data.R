@@ -21,7 +21,7 @@ read_decisions <- function(fname) {
 }
 
 read_answers <- function(fname) {
-  read_csv(fname, guess_max=Inf) %>%
+  read_csv(fname, guess_max = Inf) %>%
     mutate( answer = ifelse(answer=="Trettiåtte", "38", answer), # transliteration
             answer = ifelse(answer=="Femtifire", "54", answer),  # transliteration
             answer = ifelse(answer=="1960", "59", answer),       # Birth year
