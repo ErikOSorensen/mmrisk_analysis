@@ -1,0 +1,9 @@
+Data should be downloaded and unzipped in the original .csv format here. 
+answers.csv
+decisions.csv
+players.csv
+To be downloaded from Harvard Dataverse:
+
+Cappelen, Alexander W.; Sørensen, Erik Ø.; Tungodden, Bertil; Xu, Xiaogeng, 2021, 
+"Replication Data for: Risk taking on behalf of others: Does the timing of uncertainty revelation matter?", 
+https://doi.org/10.7910/DVN/YCRFK1, Harvard Dataverse, V1, UNF:6:sCMtQj9J2avn/5NgCFS3vg== [fileUNF]

@@ -40,6 +40,9 @@ vignettes/*.pdf
 
 # Not including the raw data, which should be downloaded from Harvard
 # Dataverse.
-./data_raw/*.csv
-./data_raw/*.zip 
-./data_raw/README.md
+data_raw/*.csv
+data_raw/*.zip 
+data_raw/README.md
+
+# Not including the targets cache
+_targets/
