@@ -1,4 +1,8 @@
 library(targets)
+library(stantargets)
+library(future)
+library(future.callr)
+future::plan(callr)
 # This is an example _targets.R file. Every
 # {targets} pipeline needs one.
 # Use tar_script() to create _targets.R and tar_edit()
@@ -13,9 +17,10 @@ library(targets)
 source(here::here("R","reading_data.R"))
 source(here::here("R","descriptives.R"))
 source(here::here("R","utility.R"))
-
+options(mc.cores = parallel::detectCores())
+options(warn=-1, message =-1)
 # Set target-specific options such as packages.
-tar_option_set(packages = c("tidyverse","dataverse","here"))
+tar_option_set(packages = c("tidyverse","dataverse","here", "rstan"))
 
 Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
 DATA_DOI <- "10.7910/DVN/YCRFK1"
@@ -60,6 +65,34 @@ list(
   tar_target(dl_now, preparing_estimation_data(decisions_complete, players_complete, dies, "now")),
   tar_target(dl_short, preparing_estimation_data(decisions_complete, players_complete, dies, "short")),
   tar_target(dl_long, preparing_estimation_data(decisions_complete, players_complete, dies, "long")),
-  tar_target(dl_never, preparing_estimation_data(decisions_complete, players_complete, dies, "never"))
+  tar_target(dl_never, preparing_estimation_data(decisions_complete, players_complete, dies, "never")),
+  tar_stan_mcmc(
+    fit_dl_now, 
+    "plain.stan",
+    dl_now,
+    iter_warmup = 3000,
+    iter_sampling = 3000 
+  ),
+  tar_stan_mcmc(
+    fit_dl_short, 
+    "plain.stan",
+    dl_short,
+    iter_warmup = 3000,
+    iter_sampling = 3000 
+  ),
+  tar_stan_mcmc(
+    fit_dl_long, 
+    "plain.stan",
+    dl_long,
+    iter_warmup = 3000,
+    iter_sampling = 3000 
+  ),
+  tar_stan_mcmc(
+    fit_dl_never, 
+    "plain.stan",
+    dl_never,
+    iter_warmup = 3000,
+    iter_sampling = 3000 
+  )
 )
   

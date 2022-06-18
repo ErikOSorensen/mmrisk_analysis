@@ -18,19 +18,19 @@ functions {
 data {
   int<lower=0> D;               // Number of decisions
   int<lower=0> N;               // Number of individuals
-  int<lower=1,upper=N> ll[D];   // This is the individual index
-  int<lower=0,upper=1> y[D];    // Outcomes, 1 if choice is lottery, 0 otherwise
-  real<lower=0> p2[D];          // Probability of good outcome
-  real<lower=0> y1[D];          // Income in bad draw
-  real<lower=0> y2[D];          // Income in good draw
-  real<lower=0> s[D];           // Safe amount
+  int<lower=0,upper=1> y[D];
+  int<lower=1,upper=N> ll[D];
+  vector<lower=0>[D] p2;          // Probability of good outcome
+  vector<lower=0>[D] y1;          // Income in bad draw
+  vector<lower=0>[D] y2;          // Income in good draw
+  vector<lower=0>[D]  s;           // Safe amount
 }
 
 parameters {
-  real<lower=0> alpha[N];
-  real<lower=0> beta[N];
-  real<lower=0> rho[N];
-  real<lower=0> lambda[N];
+  vector<lower=0>[N] alpha;
+  vector<lower=0>[N] beta;
+  vector<lower=0>[N] rho;
+  vector<lower=0>[N] lambda;
   real alpha_mu;
   real<lower=0> alpha_sigma;
   real beta_mu;
@@ -42,7 +42,7 @@ parameters {
 }
 
 transformed parameters {
-  real<lower=0> ce[D];
+  vector<lower=0>[D] ce;
   for (d in 1:D)
     ce[d] = ce_rdu( y1[d], y2[d], p2[d], alpha[ll[d]], beta[ll[d]], rho[ll[d]]); 
 }
