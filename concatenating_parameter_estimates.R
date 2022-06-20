@@ -12,6 +12,8 @@ for (i in 1:492) {
   rn <- glue('rho[{i}]')
   ln <- glue('lambda[{i}]')
   tdf <- rstan::extract(fit_short, pars=c(an,bn,rn,ln))
+  tdf <- as_tibble(tdf)
+  colnames(tdf) <- c("alpha","beta","rho","lambda")
   tdf$treatment = "short"
   tdf$id = i
   dl1[[i]] <- tdf
@@ -34,7 +36,7 @@ for (i in 1:494) {
   dl2[[i]] <- tdf
 }
 d2 <- bind_rows(dl2)
-rm(fit_short,dl2)
+rm(fit_now,dl2)
 
 dl3 <- list()
 load("data/fit_long.Rdata")
@@ -72,6 +74,5 @@ rm(fit_never,dl4)
 
 all_params <- bind_rows(list(d1,d2,d3,d4))
 
-
-
+saveRDS(all_params, file="data/all_params.rds")
 
