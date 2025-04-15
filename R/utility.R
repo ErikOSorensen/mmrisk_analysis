@@ -10,7 +10,11 @@ save_plot_and_return_path <- function(obj,
   fname
 }
 
+
 writeBin_return_name <- function(obj, fname) {
-  writeBin(obj, fname)
+  if (!file.exists(fname) || !identical(readBin(fname, what = "raw", n = length(obj)), obj)) {
+    writeBin(obj, fname)
+    Sys.chmod(fname, mode = "0444")  # Make it read-only
+  }
   fname
 }

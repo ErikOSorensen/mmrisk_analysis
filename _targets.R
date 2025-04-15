@@ -2,56 +2,50 @@ library(targets)
 library(stantargets)
 library(future)
 library(future.callr)
-future::plan(callr)
-# This is an example _targets.R file. Every
-# {targets} pipeline needs one.
-# Use tar_script() to create _targets.R and tar_edit()
-# to open it again for editing.
-# Then, run tar_make() to run the pipeline
-# and tar_read(summary) to view the results.
+plan(multicore, workers = 32)  # or up to 8–12 if you want
 
-# Define custom functions and other global objects.
-# This is where you write source(\"R/functions.R\")
-# if you keep your functions in external scripts.
 
-source(here::here("R","reading_data.R"))
-source(here::here("R","descriptives.R"))
-source(here::here("R","utility.R"))
+source(here::here("R","reading_data.R"), local=TRUE)
+source(here::here("R","descriptives.R"), local=TRUE)
+source(here::here("R","utility.R"), local=TRUE)
 options(mc.cores = parallel::detectCores())
 options(warn=-1, message =-1)
 # Set target-specific options such as packages.
 tar_option_set(packages = c("tidyverse","dataverse","here", "rstan"))
 
-Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+DATAVERSE_SERVER = "dataverse.harvard.edu"
 DATA_DOI <- "10.7910/DVN/YCRFK1"
 
 # End this file with a list of target objects.
 
-
 list(
-  tar_target(answers_raw, 
-             get_file_by_name("answers.tab", DATA_DOI) |> 
-               writeBin_return_name(here::here("data_raw","answers.csv")),
-             format = "file"
+  tar_target(
+    answers_file,
+    dataverse::get_file_by_id(5373857, server = DATAVERSE_SERVER) |> writeBin_return_name(here::here("data_raw","answers.csv")),
+    format = "file"
   ),
-  tar_target(decisions_raw,
-             get_file_by_name("decisions.tab", DATA_DOI) |> 
-               writeBin_return_name(here::here("data_raw","decisions.csv")),
-             format = "file"
+  tar_target(
+    answers,
+    readr::read_csv(answers_file)
   ),
-  tar_target(players_raw, 
-             get_file_by_name("players.tab", DATA_DOI) |> 
-               writeBin_return_name(here::here("data_raw","players.csv")),
-             format = "file"
+  tar_target(
+    decisions_file,
+    dataverse::get_file_by_id(5373859, server = DATAVERSE_SERVER) |> writeBin_return_name(here::here("data_raw","decisions.csv")),
+    format = "file"
   ),
-  tar_target(readme_data_raw,
-             get_file_by_name("README.md", DATA_DOI ) |> 
-               writeBin_return_name(here::here("data_raw","README.md")),
-             format = "file"
+  tar_target(
+    decisions,
+    readr::read_csv(decisions_file)
   ),
-  tar_target(answers, read_answers(answers_raw)),
-  tar_target(decisions, read_decisions(decisions_raw)),
-  tar_target(players, read_players(players_raw)),
+  tar_target(
+    players_file,
+    dataverse::get_file_by_id(5373858, server = DATAVERSE_SERVER) |> writeBin_return_name(here::here("data_raw","players.csv")),
+    format = "file"
+  ),
+  tar_target(
+    players,
+    readr::read_csv(players_file)
+  ),
   tar_target(players_complete, players %>% dplyr::filter(status %in% c(50,110))),
   tar_target(answers_complete, players_complete %>% dplyr::select(psid) %>% left_join(answers)),
   tar_target(decisions_complete, players_complete %>% dplyr::select(psid) %>% left_join(decisions)),
@@ -66,33 +60,53 @@ list(
   tar_target(dl_short, preparing_estimation_data(decisions_complete, players_complete, dies, "short")),
   tar_target(dl_long, preparing_estimation_data(decisions_complete, players_complete, dies, "long")),
   tar_target(dl_never, preparing_estimation_data(decisions_complete, players_complete, dies, "never")),
-  tar_stan_mcmc(
-    fit_dl_now, 
-    "plain.stan",
-    dl_now,
-    iter_warmup = 3000,
-    iter_sampling = 3000 
+  tar_target(
+    stan_model_plain,
+    cmdstanr::cmdstan_model("plain.stan", cpp_options = list(stan_threads = TRUE))
   ),
-  tar_stan_mcmc(
-    fit_dl_short, 
-    "plain.stan",
-    dl_short,
-    iter_warmup = 3000,
-    iter_sampling = 3000 
+  tar_target(
+    fit_dl_now,
+    stan_model_plain$sample(
+      data = dl_now,
+      iter_warmup = 3000,
+      iter_sampling = 3000,
+      chains = 4,
+      parallel_chains = 4,
+      threads_per_chain = 1
+    )
   ),
-  tar_stan_mcmc(
-    fit_dl_long, 
-    "plain.stan",
-    dl_long,
-    iter_warmup = 3000,
-    iter_sampling = 3000 
+  tar_target(
+    fit_dl_short,
+    stan_model_plain$sample(
+      data = dl_short,
+      iter_warmup = 3000,
+      iter_sampling = 3000,
+      chains = 4,
+      parallel_chains = 4,
+      threads_per_chain = 1
+    )
   ),
-  tar_stan_mcmc(
-    fit_dl_never, 
-    "plain.stan",
-    dl_never,
-    iter_warmup = 3000,
-    iter_sampling = 3000 
+  tar_target(
+    fit_dl_long,
+    stan_model_plain$sample(
+      data = dl_long,
+      iter_warmup = 3000,
+      iter_sampling = 3000,
+      chains = 4,
+      parallel_chains = 4,
+      threads_per_chain = 1
+    )
+  ),
+  tar_target(
+    fit_dl_never,
+    stan_model_plain$sample(
+      data = dl_never,
+      iter_warmup = 3000,
+      iter_sampling = 3000,
+      chains = 4,
+      parallel_chains = 4,
+      threads_per_chain = 1
+    )
   )
 )
   
