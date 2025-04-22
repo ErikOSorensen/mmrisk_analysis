@@ -6,9 +6,19 @@
     - Xiaogeng Xu (Hanken School of Economics)
 
 
+- [1. Data availability and Provenance](#1-data-availability-and-provenance)
+  - [1.1 Dataset list](#11-dataset-list)
+- [2. Computation requirements](#2-computation-requirements)
+  - [2.1 Software requirements](#21-software-requirements)
+  - [2.2 Controlled randomness](#22-controlled-randomness)
+  - [2.3 Memory, runtime, and storage](#23-memory-runtime-and-storage)
+- [3. Instructions to replicators](#3-instructions-to-replicators)
+- [4. List of tables and programs](#4-list-of-tables-and-programs)
+- [5. References](#5-references)
 
 
-## Data availability and Provenance
+
+## 1. Data availability and Provenance
 
 The data for this study are in the public domain and available (with detailed documentation) from Harvard Dataverse:
 
@@ -21,22 +31,22 @@ The code for running the online experiment is available at github,
 
 - Sørensen, Erik. Ø., & Xu, Xiaogeng; MMRISK instrument [Computer software], https://github.com/ErikOSorensen/mmrisk_instrument.
 
-## Dataset list
+### 1.1 Dataset list
 
 
-## Computation requirements
+## 2. Computation requirements
 
-### Software requirements
+### 2.1 Software requirements
 
-### Controlled randomness
-
-
-### Memory, runtime, and storage
+### 2.2 Controlled randomness
 
 
-## Instructions to replicators
+### 2.3 Memory, runtime, and storage
 
-## List of tables and programs
+
+## 3. Instructions to replicators
+
+## 4. List of tables and programs
 
 | Display item | Filename   | Vignette | Chunk-name |
 |--------------|------------|----------|------------|
@@ -56,11 +66,5 @@ The code for running the online experiment is available at github,
 
 
 
-## References
-
-
-
-Raw data is not included in this analysis repository, they should instead be 
-downloaded from Harvard dataverse. This is done automatically by the targets specified using the [targets](https://books.ropensci.org/targets/) package.
-
+## 5. References
 
