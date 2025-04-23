@@ -16,11 +16,60 @@ library(gt)
 tar_load(decisions_complete)
 tar_load(players_complete)
 tar_load(answers_complete)
+tar_load(answersd)
 ```
 
 
 
 ## Sample and attrition
+### Attrition
+We want to know the extent of attrition and how it
+differs by treatment. This we can tell from the "status" variable
+on the players (post treatment assignment):
+```{r}
+players_assigned <- players %>% filter(status>10)
+n_status <- table(players_assigned$status, players_assigned$treatment)
+chisq.test(n_status)
+att_table <- prop.table(n_status, 2) |>
+  as.data.frame() |> 
+  pivot_wider(id_cols="Var1", names_from="Var2", values_from = "Freq") |>
+  filter(! (Var1 %in% c(50,110))) 
+att_table <- att_table %>%
+  mutate(across(where(is.numeric), ~ round(., 4))) %>%
+  bind_rows(
+    att_table %>%
+      summarise(across(where(is.numeric), sum)) %>%
+      mutate(Var1 = "Total attrition:") %>%
+      relocate(Var1)
+  ) %>%
+  mutate(Var1 = recode(Var1,
+                       `20` = "Reading instructions",
+                       `30` = "Making decisions",
+                       `40` = "Answering background questions",
+                       `100` = "Revoking consent")) |>
+  rename(` ` = Var1,
+        "Now"=now,
+        "Short"=short,
+        "Long"=long,
+        "Never"=never)
+attrition <- att_table |> gt() |> fmt_number(decimals=3) |> 
+   tab_style(
+    style = cell_borders(
+      sides = "top",
+      color = "black",
+      weight = px(2)
+    ),
+    locations = cells_body(
+      rows = ` ` == "Total attrition:"
+    )
+  )
+attrition
+gtsave(attrition, here::here("tables","attrition.tex"))
+```
+
+
+
+
 
 ## Decisions
 
