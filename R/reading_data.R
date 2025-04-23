@@ -40,7 +40,7 @@ read_answers <- function(fname) {
                            "a_parent" = "answer8")) %>%
     select(-item) %>%
     spread( key = q , value=answer) %>%
-    mutate(edu = fct_recode( factor(education, ordered=TRUE),
+    mutate(edu = fct_recode( factor(education, ordered=FALSE),
                              "Middle school" = "1",
                              "High school" = "2",
                              "Short tertiary, e.g. technical college" = "3",
@@ -99,7 +99,7 @@ preparing_estimation_data <- function(dframe, pframe, dies, treatment) {
 # Labelling and ordering non-incentivized variables
 answersdf <- function(answers_complete) {
   answers_complete %>% 
-  mutate(edu = fct_recode( factor(education,ordered=TRUE),
+  mutate(edu = fct_recode( factor(education,ordered=FALSE),
                            "Middle school" = "1",
                            "High school" = "2",
                            "Short tertiary, e.g. technical college" = "3",

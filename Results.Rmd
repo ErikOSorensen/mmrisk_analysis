@@ -1,0 +1,49 @@
+---
+title: "Results"
+author: "Erik Ø. Sørensen"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+library(targets)
+library(tidyverse)
+library(modelsummary)
+library(gt)
+```
+
+# Reduced form evidence
+
+```{r Regressions of average risk taking on background characteristics, echo=FALSE}
+tab5map <- c("treatmentshort"="Treatment short (d)",
+             "treatmentlong" ="Treatment long (d)",
+             "treatmentnever"="Treatment never (d)",
+             "age"="Age (18--92)",
+             "genderFemale"="Female (d)",
+             "parentTRUE"="Parent (d)",
+             "eduHigh school"="High school (d)",
+             "eduShort tertiary, e.g. technical college"="Tertiary vocational (d)",
+             "eduUniversity level"="Higher education (d)",
+             "riskown" = "Own riskwillingness (1--7)",
+             "riskothers"="Belief about other's risk willingness (1--7)",
+             "good_works"="Own willingness for good works (1--7)",
+             "affecthopeful"="Hopeful (d)",
+             "affectexcited"="Excited (d)",
+             "affectworried"="Worried (d)",
+             "affectanxious"="Anxious (d)",
+             "(Intercept)"="Constant")
+
+
+tar_load(average_risk_taking_on_background) 
+tab5 <- average_risk_taking_on_background |> 
+  modelsummary(coef_map = tab5map, output="gt") |>
+  tab_spanner(label="Now", columns=4) |>
+  tab_spanner(label="Short", columns=5) |>
+  tab_spanner(label="Long", columns=6) |>
+  tab_spanner(label="Never", columns=7) |>
+  tab_spanner(label="Treatment", columns=4:7) 
+tab5
+gtsave(tab5, here::here("tables","average_risk_taking_on_background.tex"))
+```
+
+
