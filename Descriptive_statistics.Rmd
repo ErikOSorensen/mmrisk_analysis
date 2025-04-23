@@ -5,6 +5,20 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+```{r}
+library(targets)
+library(tidyverse)
+library(modelsummary)
+library(gt)
+```
+
+```{r Loading data, include=FALSE}
+tar_load(decisions_complete)
+tar_load(players_complete)
+tar_load(answers_complete)
+```
+
+
 
 ## Sample and attrition
 
@@ -34,4 +48,63 @@ ggsave(here::here("graphs","avgchoice_by_treatment.pdf"), width=16, height = 10,
 
 
 ```
+### Equality of distribution?
 
+First, what are the means? 
+```{r Means by treatment, echo=FALSE}
+avgchoice <- decisions_complete %>% 
+  group_by(psid) %>%
+  summarize( avgchoice = mean(choice_risk)) %>%
+  left_join(players_complete, by="psid") %>%
+  left_join(answers_complete, by="psid")
+
+avgchoice %>% group_by(treatment) %>%
+  summarize(mean_avgchoice = mean(avgchoice),
+            sd_avgchoice = sd(avgchoice),
+            se_avgchoice = sd(avgchoice)/sqrt(n()),
+            median_avgchoice = median(avgchoice)) %>% gt::gt() |> fmt_number(decimals=3)
+avgchoice %>% 
+  summarize(mean_avgchoice = mean(avgchoice),
+            sd_avgchoice = sd(avgchoice),
+            se_avgchoice = sd(avgchoice)/sqrt(n()),
+            median_avgchoice = median(avgchoice)) %>% gt::gt() |> fmt_number(decimals=3)
+```
+
+I use a 3-way extension of the Epps-Singleton test, implemented in R using the `manova` command (which
+do the Hotelling-Lawley test, which is the K-way extension of the Hotelling test (equivalent to Epps-Singleton
+on suitably defined variables).)
+
+```{r Epps-Singleton-Hotelling test, echo=FALSE}
+s <- IQR(avgchoice$avgchoice)
+dist_test_df <- avgchoice %>% mutate( g1 = cos(0.4*avgchoice/s),
+                                   g2 = sin(0.4*avgchoice/s),
+                                   g3 = cos(0.8*avgchoice/s),
+                                   g4 = sin(0.8*avgchoice/s)) 
+maov <- dist_test_df %>%
+  manova( cbind(g1,g2,g3,g4) ~ treatment, data=.) 
+summary(maov, test = "Hotelling-Lawley")
+```
+
+### Inconsistencies
+Participants can be said to act inconsistently if their choices over 
+a lottery is not monotone in the value of the safe alternative. 
+
+
+```{r Inconsistencies, echo=FALSE}
+decisions_complete %>% 
+  group_by(psid,dienumber) %>% 
+  arrange(psid,dienumber,safe_amount) %>%
+  mutate(risk_seeking_switch = (choice_risk - lag(choice_risk))==1,
+         safe_seeking_switch = (lag(choice_risk) - choice_risk)==1) %>%
+  summarize(left = max(risk_seeking_switch, na.rm=TRUE),
+            right = max(safe_seeking_switch, na.rm=TRUE),
+            all_safe = (max(choice_risk)==0),
+            all_risk = (min(choice_risk)==1)) %>%
+  left_join(players_complete) %>%
+  group_by(treatment) %>%
+  summarize(share_allrisk = mean(all_risk),
+            share_allsafe = mean(all_safe),
+            share_inconsistent = mean(left),
+            share_rat_switch = mean(right)) |>
+  gt::gt() |> fmt_number(decimals = 3)
+```
