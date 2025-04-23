@@ -10,3 +10,28 @@ output: html_document
 
 ## Decisions
 
+```{r Distribution of choices, echo=FALSE}
+tar_load(big_histogram_gg)
+big_histogram_gg
+ggsave(here::here("graphs","big_histogram.pdf"), width=24, height =16, units="cm")
+```
+
+
+
+```{r Graph of average outcomes, echo=FALSE}
+dist_prop_lottery_choice <- decisions_complete |>
+  group_by(psid) |>
+  summarize( avgchoice = mean(choice_risk)) |>
+  left_join(players_complete, by="psid") |>
+  left_join(answers_complete, by="psid") |>
+  ggplot() + 
+  geom_histogram(aes(avgchoice, (..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..]),   
+                 bins=29) + 
+  facet_wrap(.~treatment) + theme_minimal() + ylab("Fraction") +
+  xlab("Fraction of situations the lottery was chosen")
+dist_prop_lottery_choice
+ggsave(here::here("graphs","avgchoice_by_treatment.pdf"), width=16, height = 10, units="cm")
+
+
+```
+

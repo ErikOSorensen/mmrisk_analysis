@@ -14,7 +14,7 @@ library(gt)
 
 # Reduced form evidence
 
-```{r Regressions of average risk taking on background characteristics, echo=FALSE}
+```{r Regressions of average risk taking, echo=FALSE}
 tab5map <- c("treatmentshort"="Treatment short (d)",
              "treatmentlong" ="Treatment long (d)",
              "treatmentnever"="Treatment never (d)",

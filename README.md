@@ -54,11 +54,11 @@ The code for running the online experiment is available at github,
 | Table 2  (attrition)   |            |          |            |
 | Table 3 (representativeness) |     |   | 
 | Table 4 (descriptives)       |     |   | 
-| Table 5                      |     |   |
+| Table 5     |   average_risk_taking_on_background.tex  | Results.Rmd     |  Regressions of average risk taking |
 | Figure 1     | Design illustration, no data | NA | NA |
 | Figure 2     | Design illustration, no data | NA | NA |
-| Figure 3     |                       |      |   |
-| Figure 4     |                      |       |     |
+| Figure 3     | big_histogram.pdf  |  Descriptive_statistics.Rmd     | Distribution of choices  | 
+| Figure 4     | avgchoice_by_treatment.pdf  | Descriptive_statistics.Rmd      | Graph of average outcomes    |
 | Figure 5     |                      |       |     |
 | Figure 6     |                      |        |      |
 | Figure 7     |                      |        |      |
