@@ -103,6 +103,41 @@ cor(answers_complete$risk_own, answers_complete$risk_others)
 ```
 
 
+What about the timing of decisions? First, look at time to first decision:
+```{r Time to first decision, echo=FALSE}
+first_decisions <-decisions_complete %>% group_by(psid) %>% 
+  summarize(first = min(updated_at)) %>%
+  left_join(players_complete) %>%
+  mutate( diff_time = first - created_at)
+first_decisions %>%
+  summarize(p05=quantile(diff_time, probs=0.05), 
+            p25=quantile(diff_time, probs=0.25),
+            p50=median(diff_time),
+            p75=quantile(diff_time, probs=0.75),
+            p95=quantile(diff_time, probs=0.95),
+            avg = mean(diff_time),
+            below60 = mean( (diff_time<60)))
+
+```
+
+Time to subsequent decisions:
+```{r Time to subsequent decisions, echo=FALSE}
+first_decisions <-decisions_complete %>% group_by(psid) %>% 
+  summarize(first = min(updated_at)) %>%
+  left_join(players_complete) %>%
+  mutate( diff_time = first - created_at)
+first_decisions %>%
+  summarize(p05=quantile(diff_time, probs=0.05), 
+            p25=quantile(diff_time, probs=0.25),
+            p50=median(diff_time),
+            p75=quantile(diff_time, probs=0.75),
+            p95=quantile(diff_time, probs=0.95),
+            avg = mean(diff_time),
+            below60 = mean( (diff_time<60)))
+```
+
+
+
 ## Decisions
 
 ```{r Distribution of choices, echo=FALSE}
