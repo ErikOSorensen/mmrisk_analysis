@@ -22,26 +22,28 @@ tar_load(answersd)
 
 
 ## Sample and attrition
+
+
 ### Attrition
 We want to know the extent of attrition and how it
 differs by treatment. This we can tell from the "status" variable
 on the players (post treatment assignment):
-```{r}
-players_assigned <- players %>% filter(status>10)
+```{r Attrition, echo=FALSE}
+players_assigned <- players |> filter(status>10)
 n_status <- table(players_assigned$status, players_assigned$treatment)
 chisq.test(n_status)
 att_table <- prop.table(n_status, 2) |>
   as.data.frame() |> 
   pivot_wider(id_cols="Var1", names_from="Var2", values_from = "Freq") |>
   filter(! (Var1 %in% c(50,110))) 
-att_table <- att_table %>%
-  mutate(across(where(is.numeric), ~ round(., 4))) %>%
+att_table <- att_table |>
+  mutate(across(where(is.numeric), ~ round(., 4))) |>
   bind_rows(
-    att_table %>%
-      summarise(across(where(is.numeric), sum)) %>%
-      mutate(Var1 = "Total attrition:") %>%
+    att_table |>
+      summarise(across(where(is.numeric), sum)) |>
+      mutate(Var1 = "Total attrition:") |>
       relocate(Var1)
-  ) %>%
+  ) |>
   mutate(Var1 = recode(Var1,
                        `20` = "Reading instructions",
                        `30` = "Making decisions",
@@ -68,7 +70,37 @@ gtsave(attrition, here::here("tables","attrition.tex"))
 ```
 
 
+### Representativeness of sample
 
+The data for the population in 2019 have been downloaded from 
+[Statistics Norway, Table 10211](https://www.ssb.no/statbank/table/10211/).
+
+```{r Representativeness of sample, echo=FALSE}
+tar_load(representativeness_of_sample)
+representativeness_of_sample$panelA 
+gtsave(representativeness_of_sample$panelA , here::here("tables","representativeness_of_sampleA.tex"))
+representativeness_of_sample$panelB
+gtsave(representativeness_of_sample$panelA , here::here("tables","representativeness_of_sampleB.tex"))
+```
+
+### Descriptives on sample
+
+```{r Descriptives on sample, echo=FALSE}
+tar_load(descriptives_on_sample)
+descriptives <- descriptives_on_sample |> gt::gt() |> fmt_number(decimals=3)
+descriptives
+gtsave(descriptives, here::here("tables", "descriptives_on_sample.tex"))
+```
+
+
+
+
+### Other numbers for text
+
+What is the correlation between own risk preferences and beliefs about others?
+```{r}
+cor(answers_complete$risk_own, answers_complete$risk_others)
+```
 
 
 ## Decisions
@@ -101,22 +133,22 @@ ggsave(here::here("graphs","avgchoice_by_treatment.pdf"), width=16, height = 10,
 
 First, what are the means? 
 ```{r Means by treatment, echo=FALSE}
-avgchoice <- decisions_complete %>% 
-  group_by(psid) %>%
-  summarize( avgchoice = mean(choice_risk)) %>%
-  left_join(players_complete, by="psid") %>%
+avgchoice <- decisions_complete |> 
+  group_by(psid) |>
+  summarize( avgchoice = mean(choice_risk)) |>
+  left_join(players_complete, by="psid") |>
   left_join(answers_complete, by="psid")
 
-avgchoice %>% group_by(treatment) %>%
+avgchoice |> group_by(treatment) |>
   summarize(mean_avgchoice = mean(avgchoice),
             sd_avgchoice = sd(avgchoice),
             se_avgchoice = sd(avgchoice)/sqrt(n()),
-            median_avgchoice = median(avgchoice)) %>% gt::gt() |> fmt_number(decimals=3)
-avgchoice %>% 
+            median_avgchoice = median(avgchoice)) |> gt::gt() |> fmt_number(decimals=3)
+avgchoice |> 
   summarize(mean_avgchoice = mean(avgchoice),
             sd_avgchoice = sd(avgchoice),
             se_avgchoice = sd(avgchoice)/sqrt(n()),
-            median_avgchoice = median(avgchoice)) %>% gt::gt() |> fmt_number(decimals=3)
+            median_avgchoice = median(avgchoice)) |> gt::gt() |> fmt_number(decimals=3)
 ```
 
 I use a 3-way extension of the Epps-Singleton test, implemented in R using the `manova` command (which
@@ -125,11 +157,11 @@ on suitably defined variables).)
 
 ```{r Epps-Singleton-Hotelling test, echo=FALSE}
 s <- IQR(avgchoice$avgchoice)
-dist_test_df <- avgchoice %>% mutate( g1 = cos(0.4*avgchoice/s),
+dist_test_df <- avgchoice |> mutate( g1 = cos(0.4*avgchoice/s),
                                    g2 = sin(0.4*avgchoice/s),
                                    g3 = cos(0.8*avgchoice/s),
                                    g4 = sin(0.8*avgchoice/s)) 
-maov <- dist_test_df %>%
+maov <- dist_test_df |>
   manova( cbind(g1,g2,g3,g4) ~ treatment, data=.) 
 summary(maov, test = "Hotelling-Lawley")
 ```
@@ -140,17 +172,17 @@ a lottery is not monotone in the value of the safe alternative.
 
 
 ```{r Inconsistencies, echo=FALSE}
-decisions_complete %>% 
-  group_by(psid,dienumber) %>% 
-  arrange(psid,dienumber,safe_amount) %>%
+decisions_complete |> 
+  group_by(psid,dienumber) |> 
+  arrange(psid,dienumber,safe_amount) |>
   mutate(risk_seeking_switch = (choice_risk - lag(choice_risk))==1,
-         safe_seeking_switch = (lag(choice_risk) - choice_risk)==1) %>%
+         safe_seeking_switch = (lag(choice_risk) - choice_risk)==1) |>
   summarize(left = max(risk_seeking_switch, na.rm=TRUE),
             right = max(safe_seeking_switch, na.rm=TRUE),
             all_safe = (max(choice_risk)==0),
-            all_risk = (min(choice_risk)==1)) %>%
-  left_join(players_complete) %>%
-  group_by(treatment) %>%
+            all_risk = (min(choice_risk)==1)) |>
+  left_join(players_complete) |>
+  group_by(treatment) |>
   summarize(share_allrisk = mean(all_risk),
             share_allsafe = mean(all_safe),
             share_inconsistent = mean(left),

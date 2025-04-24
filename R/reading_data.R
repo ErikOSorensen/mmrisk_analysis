@@ -119,3 +119,19 @@ answersdf <- function(answers_complete) {
   )
 }
 
+read_ssb <- function(fname) {
+  ssb <-read_csv2(here::here("external_data", fname),
+                  locale = locale(encoding = "latin1"),
+                  skip=2) |> 
+    mutate(age =parse_number(alder),
+           gender = 1*(`kjønn`=="Menn") + 2*(`kjønn`=="Kvinner")) |>
+    filter(age>17) |> 
+    mutate(ageg = cut(age, breaks=c(18,20,30,40,50,60,70,80,110), 
+                      right=FALSE, ordered_result = TRUE)) |>
+    select(-c(`kjønn`,"alder")) |>
+    mutate(gender = factor(gender,
+                           levels = c(1, 2),
+                           labels = c("Male", "Female")))
+  
+  ssb
+}

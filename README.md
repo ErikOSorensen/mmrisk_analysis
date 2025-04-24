@@ -20,16 +20,21 @@
 
 ## 1. Data availability and Provenance
 
-The data for this study are in the public domain and available (with detailed documentation) from Harvard Dataverse:
+The data collected for this study are in the public domain and available (with detailed documentation) from Harvard Dataverse:
 
 - Cappelen, Alexander W.; Sørensen, Erik Ø.; Tungodden, Bertil; Xu, Xiaogeng,
   2021, "Replication Data for: Risk taking on behalf of others: Does the timing
   of uncertainty revelation matter?", https://doi.org/10.7910/DVN/YCRFK1,
   Harvard Dataverse, V1, UNF:6:sCMtQj9J2avn/5NgCFS3vg== [fileUNF]
 
-The code for running the online experiment is available at github,
+The code for running the online experiment and collecting this data is available at github,
 
 - Sørensen, Erik. Ø., & Xu, Xiaogeng; MMRISK instrument [Computer software], https://github.com/ErikOSorensen/mmrisk_instrument.
+
+For comparison of our data to the population, we also use reference numbers on the Norwegian population. We provide this data in the replication package.
+
+- Statistics Norway (2019), "10211: Alders- og kjønnsfordeling i hele befolkningen 1846 - 2025", 
+  [Statistics Norway, Table 10211](https://www.ssb.no/statbank/table/10211/), downloaded  2019-07-14.
 
 ### 1.1 Dataset list
 
@@ -43,6 +48,8 @@ The code for running the online experiment is available at github,
 
 ### 2.3 Memory, runtime, and storage
 
+The machine runs on VMware Virtual Platform, on a 32-Core AMD EPYC 7543P, with Ubuntu 20.04.6 LTS (Focal Fossa), 5.15.0-130-generic Kernel with 192GB memory available.
+Saving all stan outputs, about 35 GB memory is needed. As written, the program takes advantage of up to 16 cores, and then it runs for about 35 hours.
 
 ## 3. Instructions to replicators
 
@@ -51,9 +58,10 @@ The code for running the online experiment is available at github,
 | Display item | Filename   | Vignette | Chunk-name |
 |--------------|------------|----------|------------|
 | Table 1      | Design parameters, no data  | NA      | NA     |
-| Table 2  (attrition)   |            |          |            |
-| Table 3 (representativeness) |     |   | 
-| Table 4 (descriptives)       |     |   | 
+| Table 2    |  attrition.tex | Descriptive_statistics.Rmd         |   Attrition         |
+| Table 3a |   representativeness_of_sampleA.tex  | Descriptive_statistics.Rmd         |   Representativeness of sample         |
+| Table 3b |   representativeness_of_sampleB.tex  | Descriptive_statistics.Rmd         |   Representativeness of sample         |
+| Table 4      | descriptives_on_sample.tex | Descriptive_statistics.Rmd    | Descriptives on sample  | 
 | Table 5     |   average_risk_taking_on_background.tex  | Results.Rmd     |  Regressions of average risk taking |
 | Figure 1     | Design illustration, no data | NA | NA |
 | Figure 2     | Design illustration, no data | NA | NA |

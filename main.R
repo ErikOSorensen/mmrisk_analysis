@@ -8,5 +8,5 @@ source("_targets.R")
 library(future)
 plan(multicore)
 # Run pipeline
-tar_destroy(destroy="all")
+#tar_destroy(destroy="all")
 tar_make_future(workers = 30, callr_function = NULL)

@@ -39,3 +39,80 @@ average_risk_taking_on_background_list <- function(decisions_complete, players_c
          edu + risk_own + risk_others + good_works +affect, data=.)
   list(r1,r2,r3,r4,r5,r6)
 }
+
+
+representativeness_of_sample_list <- function(answersd, ssb) {
+  pyramid_ssb <- ssb |> group_by(gender, ageg) |> 
+    summarize(n = sum(`Personer 2019`)) |> mutate(ntot = sum(n),
+                                                  share = n/ntot, 
+                                                  group = "Population") |>
+    select(ageg,group,gender,share) |>
+    spread(key=gender, value=share) |> 
+    rename(pMale = Male,
+           pFemale=Female) |> select(c(ageg,pMale,pFemale)) 
+  
+  total_ssb <- ssb |> group_by(gender) |> 
+    summarize(n = sum(`Personer 2019`)) |> mutate(ntot = sum(n),
+                                                  share = n/ntot,
+                                                  ageg = "Total") |>
+    select(c(ageg,gender,share)) |>
+    pivot_wider(id_cols=ageg, values_from = share, names_from = gender, names_prefix = "p")
+  
+  pyramid_norstat <- answersd |> select(age,gender) |>
+    mutate(ageg = cut(age, breaks=c(18,20,30,40,50,60,70,80,110), 
+                      right=FALSE, ordered_result = TRUE)) |>
+    filter(!is.na(gender)) |>
+    filter(!is.na(age)) |>
+    group_by(gender, ageg) |> 
+    summarize(n = n()) |> mutate(ntot = sum(n),
+                                 share = n/ntot) |>
+    select(ageg,gender,share) |>
+    spread(key=gender, value=share) |> 
+    rename(nMale = `1`,
+           nFemale = `2`) 
+  
+  total_norstat <- answersd |> group_by(gender) |> 
+    summarize(n = n()) |>
+    filter(!is.na(gender)) |>
+    mutate(share = n/sum(n),
+           ageg = "Total") |> 
+    dplyr::select(-n) |>
+    select(c(ageg,gender,share)) |>
+    pivot_wider(id_cols=ageg, values_from = share, names_from = gender, names_prefix = "n") |>
+    rename(nMale = n1, nFemale=n2) 
+  
+  panelA <- pyramid_ssb |> left_join(pyramid_norstat) |>
+    dplyr::select(c(ageg, nMale, pMale, nFemale, pFemale)) |>
+    gt::gt() |> fmt_number(decimals=3) |>
+    tab_spanner(label="Male", columns=2:3) |>
+    tab_spanner(label="Female", columns=4:5) |>
+    cols_label(ageg="",nMale="Sample",pMale="Population",nFemale="Sample",pFemale="Population")
+  
+  panelB <- total_ssb |> left_join(total_norstat) |>
+    dplyr::select(c(ageg, nMale, pMale, nFemale, pFemale)) |>
+    gt::gt() |> fmt_number(decimals=3) |>
+    tab_spanner(label="Male", columns=2:3) |>
+    tab_spanner(label="Female", columns=4:5) |>
+    cols_label(ageg="",nMale="Sample",pMale="Population",nFemale="Sample",pFemale="Population")
+  
+  list("panelA"=panelA, "panelB"=panelB)
+}
+
+
+descriptives_on_sample_df <- function(answersd) {
+  se <- function(x) {
+    sd(x, na.rm=TRUE)/sqrt(length(x[!is.na(x)]))
+  }
+  sesd <- function(x) {
+    jackknife(x, sd, na.rm=TRUE)$jack.se
+  }
+  answersd %>%
+    select( c(age,female,parent,risk_own,risk_others,good_works,edu,affect)) %>%
+    dummy_cols(select_columns=c("edu","affect")) %>%
+    select(-c(edu,affect)) %>%
+    gather(key="key") %>%
+    group_by(key) %>% 
+    summarize(meanX = mean(value, na.rm=TRUE), seX = se(value),
+              sdX = sd(value, na.rm=TRUE), sesdX = sesd(value)) %>%
+    knitr::kable(digits=3)
+}
