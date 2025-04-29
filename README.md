@@ -29,7 +29,7 @@ The data collected for this study are in the public domain and available (with d
 
 The code for running the online experiment and collecting this data is available at github,
 
-- Sørensen, Erik. Ø., & Xu, Xiaogeng; MMRISK instrument [Computer software], https://github.com/ErikOSorensen/mmrisk_instrument.
+- Sørensen, E. Ø., & Xu, X. (2025). MMRISK instrument (submission). Zenodo. https://doi.org/10.5281/zenodo.15297374
 
 For comparison of our data to the population, we also use reference numbers on the Norwegian population. We provide this data in the replication package.
 
@@ -43,8 +43,12 @@ For comparison of our data to the population, we also use reference numbers on t
 
 ### 2.1 Software requirements
 
+The main software required is R (v 4.5) and Stan (v 2.36). 
+
+
 ### 2.2 Controlled randomness
 
+The random seed is set in `_targets.R`, line 16.
 
 ### 2.3 Memory, runtime, and storage
 

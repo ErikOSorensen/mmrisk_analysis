@@ -1,16 +1,19 @@
 library(targets)
 library(stantargets)
 library(here)
-
-
+library(bootstrap)
+library(gt)
 source(here::here("R","reading_data.R"), local=TRUE)
 source(here::here("R","descriptives.R"), local=TRUE)
 source(here::here("R","utility.R"), local=TRUE)
 # Set target-specific options such as packages.
-tar_option_set(packages = c("tidyverse","dataverse","here", "rstan", "fastDummies"))
+tar_option_set(packages = c("tidyverse","dataverse","here", "rstan", 
+                            "fastDummies", "bootstrap", "gt"))
 
 DATAVERSE_SERVER = "dataverse.harvard.edu"
 DATA_DOI <- "10.7910/DVN/YCRFK1"
+
+tar_option_set(seed = 912324641)
 
 # End this file with a list of target objects.
 
