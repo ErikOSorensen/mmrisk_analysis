@@ -74,6 +74,11 @@ Saving all stan outputs, about 35 GB memory is needed. As written, the program t
 | Figure 5     |                      |       |     |
 | Figure 6     |                      |        |      |
 | Figure 7     |                      |        |      |
+| Figure A1    | Traceplot_now.pdf  | Traceplots.Rmd | Traceplot: Treatment Now |
+| Figure A2    | Traceplot_short.pdf  | Traceplots.Rmd | Traceplot: Treatment Short |
+| Figure A3    | Traceplot_long.pdf  | Traceplots.Rmd | Traceplot: Treatment Long |
+| Figure A4    | Traceplot_never.pdf  | Traceplots.Rmd | Traceplot: Treatment Never |
+
 
 
 

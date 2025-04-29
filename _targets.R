@@ -1,8 +1,10 @@
 library(targets)
+library(tarchetypes)
 library(stantargets)
 library(here)
 library(bootstrap)
 library(gt)
+library(visNetwork)
 source(here::here("R","reading_data.R"), local=TRUE)
 source(here::here("R","descriptives.R"), local=TRUE)
 source(here::here("R","utility.R"), local=TRUE)
@@ -171,5 +173,8 @@ list(
   tar_target(fit_dl_now_draws, fit_dl_now$draws(format = "df")),
   tar_target(fit_dl_short_draws, fit_dl_short$draws(format = "df")),
   tar_target(fit_dl_long_draws, fit_dl_long$draws(format = "df")),
-  tar_target(fit_dl_never_draws, fit_dl_never$draws(format = "df"))
+  tar_target(fit_dl_never_draws, fit_dl_never$draws(format = "df")),
+  tar_render(Descriptives_statistics, "Descriptive_statistics.Rmd"),
+  tar_render(Results, "Results.Rmd"),
+  tar_render(Traceplots, "Traceplots.Rmd")
 )

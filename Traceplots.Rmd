@@ -1,0 +1,56 @@
+---
+title: "Traceplots"
+author: "Erik Ø. Sørensen"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+library(bayesplot)
+library(tidyverse)
+library(targets)
+```
+
+
+
+This file saves traceplots of the 8 parameters that characterize the 
+hyper parameters. 
+
+
+```{r include=FALSE}
+parameters <- c("alpha_mu","alpha_sigma","beta_mu","beta_sigma","lambda_mu","lambda_sigma","rho_mu","rho_sigma")
+```
+
+
+
+# Now
+
+```{r Traceplot: Treatment Now, echo=FALSE}
+tar_load(fit_dl_now_draws)
+mcmc_trace(fit_dl_now_draws, pars = parameters, facet_args = list(nrow = 4, ncol = 2), iter1 =3001)
+ggsave(here::here("graphs","traceplot_now.pdf"), width=16, height = 22, units = "cm")
+```
+
+
+# Short 
+```{r Traceplot: Treatment Short, echo=FALSE}
+tar_load(fit_dl_short_draws)
+mcmc_trace(fit_dl_short_draws, pars = parameters, facet_args = list(nrow = 4, ncol = 2), iter1 =3001)
+ggsave(here::here("graphs","traceplot_short.pdf"), width=16, height = 22, units = "cm")
+```
+
+
+# Long 
+```{r Traceplot: Treatment Long, echo=FALSE}
+tar_load(fit_dl_long_draws)
+mcmc_trace(fit_dl_long_draws, pars = parameters, facet_args = list(nrow = 4, ncol = 2), iter1 =3001)
+ggsave(here::here("graphs","traceplot_long.pdf"), width=16, height = 22, units = "cm")
+```
+
+# Never 
+
+```{r Traceplot: Treatment Never, echo=FALSE}
+tar_load(fit_dl_never_draws)
+mcmc_trace(fit_dl_never_draws, pars = parameters, facet_args = list(nrow = 4, ncol = 2), iter1 =3001)
+ggsave(here::here("graphs","traceplot_never.pdf"), width=16, height = 22, units = "cm")
+```
