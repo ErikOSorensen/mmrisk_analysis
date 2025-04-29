@@ -176,5 +176,15 @@ list(
   tar_target(fit_dl_never_draws, fit_dl_never$draws(format = "df")),
   tar_render(Descriptives_statistics, "Descriptive_statistics.Rmd"),
   tar_render(Results, "Results.Rmd"),
-  tar_render(Traceplots, "Traceplots.Rmd")
+  tar_render(Traceplots, "Traceplots.Rmd"),
+  tar_target(hyper_params_name, parameters <- c("alpha_mu","alpha_sigma",
+                                                "beta_mu","beta_sigma",
+                                                "lambda_mu","lambda_sigma",
+                                                "rho_mu","rho_sigma")),
+  tar_target(prior_densities, prior_densities_df(hyper_params_name)),
+  tar_target(posterior_draws, hyper_params_df(names, 
+                                              fit_dl_now_draws,
+                                              fit_dl_short_draws,
+                                              fit_dl_long_draws,
+                                              fit_dl_never_draws))
 )

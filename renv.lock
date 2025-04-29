@@ -1203,89 +1203,6 @@
       "Maintainer": "Matthew Lincoln <matthew.d.lincoln@gmail.com>",
       "Repository": "RSPM"
     },
-    "clue": {
-      "Package": "clue",
-      "Version": "0.3-66",
-      "Source": "Repository",
-      "Encoding": "UTF-8",
-      "Title": "Cluster Ensembles",
-      "Description": "CLUster Ensembles.",
-      "Authors@R": "c(person(\"Kurt\", \"Hornik\", role = c(\"aut\", \"cre\"), email = \"Kurt.Hornik@R-project.org\", comment = c(ORCID = \"0000-0003-4198-9911\")), person(\"Walter\", \"Böhm\", role = \"ctb\"))",
-      "License": "GPL-2",
-      "Depends": [
-        "R (>= 3.2.0)"
-      ],
-      "Imports": [
-        "stats",
-        "cluster",
-        "graphics",
-        "methods"
-      ],
-      "Suggests": [
-        "e1071",
-        "lpSolve (>= 5.5.7)",
-        "quadprog (>= 1.4-8)",
-        "relations"
-      ],
-      "Enhances": [
-        "RWeka",
-        "ape",
-        "cba",
-        "cclust",
-        "flexclust",
-        "flexmix",
-        "kernlab",
-        "mclust",
-        "movMF",
-        "modeltools"
-      ],
-      "NeedsCompilation": "yes",
-      "Author": "Kurt Hornik [aut, cre] (<https://orcid.org/0000-0003-4198-9911>), Walter Böhm [ctb]",
-      "Maintainer": "Kurt Hornik <Kurt.Hornik@R-project.org>",
-      "Repository": "CRAN"
-    },
-    "cluster": {
-      "Package": "cluster",
-      "Version": "2.1.8.1",
-      "Source": "Repository",
-      "VersionNote": "Last CRAN: 2.1.8 on 2024-12-10; 2.1.7 on 2024-12-06; 2.1.6 on 2023-11-30; 2.1.5 on 2023-11-27",
-      "Date": "2025-03-11",
-      "Priority": "recommended",
-      "Title": "\"Finding Groups in Data\": Cluster Analysis Extended Rousseeuw et al.",
-      "Description": "Methods for Cluster analysis.  Much extended the original from Peter Rousseeuw, Anja Struyf and Mia Hubert, based on Kaufman and Rousseeuw (1990) \"Finding Groups in Data\".",
-      "Maintainer": "Martin Maechler <maechler@stat.math.ethz.ch>",
-      "Authors@R": "c(person(\"Martin\",\"Maechler\", role = c(\"aut\",\"cre\"), email=\"maechler@stat.math.ethz.ch\", comment = c(ORCID = \"0000-0002-8685-9910\")) ,person(\"Peter\", \"Rousseeuw\", role=\"aut\", email=\"peter.rousseeuw@kuleuven.be\", comment = c(\"Fortran original\", ORCID = \"0000-0002-3807-5353\")) ,person(\"Anja\", \"Struyf\", role=\"aut\", comment= \"S original\") ,person(\"Mia\", \"Hubert\", role=\"aut\", email= \"Mia.Hubert@uia.ua.ac.be\", comment = c(\"S original\", ORCID = \"0000-0001-6398-4850\")) ,person(\"Kurt\", \"Hornik\", role=c(\"trl\", \"ctb\"), email=\"Kurt.Hornik@R-project.org\", comment=c(\"port to R; maintenance(1999-2000)\", ORCID=\"0000-0003-4198-9911\")) ,person(\"Matthias\", \"Studer\", role=\"ctb\") ,person(\"Pierre\", \"Roudier\", role=\"ctb\") ,person(\"Juan\",   \"Gonzalez\", role=\"ctb\") ,person(\"Kamil\",  \"Kozlowski\", role=\"ctb\") ,person(\"Erich\",  \"Schubert\", role=\"ctb\", comment = c(\"fastpam options for pam()\", ORCID = \"0000-0001-9143-4880\")) ,person(\"Keefe\",  \"Murphy\", role=\"ctb\", comment = \"volume.ellipsoid({d >= 3})\") #not yet ,person(\"Fischer-Rasmussen\", \"Kasper\", role = \"ctb\", comment = \"Gower distance for CLARA\") )",
-      "Depends": [
-        "R (>= 3.5.0)"
-      ],
-      "Imports": [
-        "graphics",
-        "grDevices",
-        "stats",
-        "utils"
-      ],
-      "Suggests": [
-        "MASS",
-        "Matrix"
-      ],
-      "SuggestsNote": "MASS: two examples using cov.rob() and mvrnorm(); Matrix tools for testing",
-      "Enhances": [
-        "mvoutlier",
-        "fpc",
-        "ellipse",
-        "sfsmisc"
-      ],
-      "EnhancesNote": "xref-ed in man/*.Rd",
-      "LazyLoad": "yes",
-      "LazyData": "yes",
-      "ByteCompile": "yes",
-      "BuildResaveData": "no",
-      "License": "GPL (>= 2)",
-      "URL": "https://svn.r-project.org/R-packages/trunk/cluster/",
-      "NeedsCompilation": "yes",
-      "Author": "Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>), Peter Rousseeuw [aut] (Fortran original, <https://orcid.org/0000-0002-3807-5353>), Anja Struyf [aut] (S original), Mia Hubert [aut] (S original, <https://orcid.org/0000-0001-6398-4850>), Kurt Hornik [trl, ctb] (port to R; maintenance(1999-2000), <https://orcid.org/0000-0003-4198-9911>), Matthias Studer [ctb], Pierre Roudier [ctb], Juan Gonzalez [ctb], Kamil Kozlowski [ctb], Erich Schubert [ctb] (fastpam options for pam(), <https://orcid.org/0000-0001-9143-4880>), Keefe Murphy [ctb] (volume.ellipsoid({d >= 3}))",
-      "Repository": "CRAN"
-    },
     "cmdstanr": {
       "Package": "cmdstanr",
       "Version": "0.9.0",
@@ -1965,44 +1882,6 @@
       "Author": "Hadley Wickham [aut, cre], Yihui Xie [aut] (<https://orcid.org/0000-0003-0645-5666>), Michael Lawrence [ctb], Thomas Kluyver [ctb], Jeroen Ooms [ctb], Barret Schloerke [ctb], Adam Ryczkowski [ctb], Hiroaki Yutani [ctb], Michel Lang [ctb], Karolis Koncevičius [ctb], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "RSPM"
-    },
-    "fBasics": {
-      "Package": "fBasics",
-      "Version": "4041.97",
-      "Source": "Repository",
-      "Title": "Rmetrics - Markets and Basic Statistics",
-      "Authors@R": "c(person(\"Diethelm\", \"Wuertz\", role=\"aut\", comment = \"original code\") , person(\"Tobias\", \"Setz\", role = c(\"aut\"), email = \"tobias.setz@live.com\") , person(\"Yohan\", \"Chalabi\", role = \"aut\") , person(\"Martin\",\"Maechler\", role=\"ctb\", email=\"maechler@stat.math.ethz.ch\", comment = c(ORCID = \"0000-0002-8685-9910\")) , person(\"CRAN Team\", role = \"ctb\") , person(given = c(\"Georgi\", \"N.\"), family = \"Boshnakov\",  role = c(\"cre\", \"aut\"), email = \"georgi.boshnakov@manchester.ac.uk\") )",
-      "Description": "Provides a collection of functions to  explore and to investigate basic properties of financial returns  and related quantities. The covered fields include techniques of explorative data analysis and the investigation of distributional properties, including parameter estimation and hypothesis testing. Even more there are several utility functions for data handling and management.",
-      "Depends": [
-        "R (>= 2.15.1)"
-      ],
-      "Imports": [
-        "timeDate",
-        "timeSeries (>= 4021.105)",
-        "stats",
-        "grDevices",
-        "graphics",
-        "methods",
-        "utils",
-        "MASS",
-        "spatial",
-        "gss",
-        "stabledist"
-      ],
-      "Suggests": [
-        "interp",
-        "RUnit",
-        "tcltk"
-      ],
-      "LazyData": "yes",
-      "License": "GPL (>= 2)",
-      "Encoding": "UTF-8",
-      "URL": "https://geobosh.github.io/fBasicsDoc/ (doc), https://r-forge.r-project.org/scm/viewvc.php/pkg/fBasics/?root=rmetrics (devel), https://www.rmetrics.org",
-      "BugReports": "https://r-forge.r-project.org/projects/rmetrics",
-      "NeedsCompilation": "yes",
-      "Author": "Diethelm Wuertz [aut] (original code), Tobias Setz [aut], Yohan Chalabi [aut], Martin Maechler [ctb] (<https://orcid.org/0000-0002-8685-9910>), CRAN Team [ctb], Georgi N. Boshnakov [cre, aut]",
-      "Maintainer": "Georgi N. Boshnakov <georgi.boshnakov@manchester.ac.uk>",
-      "Repository": "CRAN"
     },
     "fansi": {
       "Package": "fansi",
@@ -2728,24 +2607,6 @@
       "Maintainer": "Baptiste Auguie <baptiste.auguie@gmail.com>",
       "Repository": "RSPM",
       "Encoding": "UTF-8"
-    },
-    "gss": {
-      "Package": "gss",
-      "Version": "2.2-9",
-      "Source": "Repository",
-      "Date": "2025-04-13",
-      "Title": "General Smoothing Splines",
-      "Authors@R": "c(person(\"Chong\",\"Gu\",role=c(\"aut\",\"cre\"), email=\"chong@purdue.edu\"))",
-      "Author": "Chong Gu [aut, cre]",
-      "Maintainer": "Chong Gu <chong@purdue.edu>",
-      "Depends": [
-        "R (>= 3.0.0)",
-        "stats"
-      ],
-      "Description": "A comprehensive package for structural multivariate function estimation using smoothing splines.",
-      "License": "GPL (>= 2)",
-      "NeedsCompilation": "yes",
-      "Repository": "CRAN"
     },
     "gt": {
       "Package": "gt",
@@ -4004,41 +3865,6 @@
       "NeedsCompilation": "yes",
       "Author": "Yihui Xie [aut, cre] (<https://orcid.org/0000-0003-0645-5666>), Jeffrey Horner [ctb], Beilei Bian [ctb]",
       "Maintainer": "Yihui Xie <xie@yihui.name>",
-      "Repository": "CRAN"
-    },
-    "modeest": {
-      "Package": "modeest",
-      "Version": "2.4.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Mode Estimation",
-      "Authors@R": "person(\"Paul\", \"Poncet\", , \"paulponcet@yahoo.fr\", role = c(\"aut\", \"cre\"))",
-      "Description": "Provides estimators of the mode of univariate data or univariate distributions.",
-      "License": "GPL-3",
-      "LazyData": "TRUE",
-      "Depends": [
-        "R (>= 3.2)"
-      ],
-      "Imports": [
-        "fBasics",
-        "stable",
-        "stabledist",
-        "stats",
-        "statip (>= 0.2.3)"
-      ],
-      "Suggests": [
-        "evd",
-        "knitr",
-        "mvtnorm",
-        "testthat",
-        "VGAM"
-      ],
-      "URL": "https://github.com/paulponcet/modeest",
-      "BugReports": "https://github.com/paulponcet/modeest/issues",
-      "RoxygenNote": "7.0.0",
-      "NeedsCompilation": "no",
-      "Author": "Paul Poncet [aut, cre]",
-      "Maintainer": "Paul Poncet <paulponcet@yahoo.fr>",
       "Repository": "CRAN"
     },
     "modelr": {
@@ -5534,54 +5360,6 @@
       "Maintainer": "Yihui Xie <xie@yihui.name>",
       "Repository": "RSPM"
     },
-    "rmutil": {
-      "Package": "rmutil",
-      "Version": "1.1.10",
-      "Source": "Repository",
-      "Title": "Utilities for Nonlinear Regression and Repeated Measurements Models",
-      "Authors@R": "c( person(\"Bruce\", \"Swihart\", email=\"bruce.swihart@gmail.com\", role=c(\"cre\", \"aut\")), person(\"Jim\"  , \"Lindsey\", email=\"jlindsey@gen.unimaas.nl\", role=\"aut\", comment=\"Jim created this package, Bruce is maintaining the CRAN version\"), person(\"K.\", \"Sikorski\", role=c(\"ctb\", \"cph\"), comment=\"Wrote TOMS614/INTHP, https://calgo.acm.org/\"), person(\"F.\", \"Stenger\", role=c(\"ctb\", \"cph\"), comment=\"Wrote TOMS614/INTHP, https://calgo.acm.org/\"), person(\"J.\", \"Schwing\", role=c(\"ctb\", \"cph\"), comment=\"Wrote TOMS614/INTHP, https://calgo.acm.org/\") )",
-      "Depends": [
-        "R (>= 1.4)"
-      ],
-      "Description": "A toolkit of functions for nonlinear regression and repeated measurements not to be used by itself but called by other Lindsey packages such as 'gnlm', 'stable', 'growth', 'repeated', and 'event'  (available at <https://www.commanster.eu/rcode.html>).",
-      "License": "GPL (>= 2)",
-      "URL": "https://www.commanster.eu/rcode.html",
-      "BugReports": "https://github.com/swihart/rmutil/issues",
-      "Encoding": "UTF-8",
-      "LazyLoad": "true",
-      "NeedsCompilation": "yes",
-      "Author": "Bruce Swihart [cre, aut], Jim Lindsey [aut] (Jim created this package, Bruce is maintaining the CRAN version), K. Sikorski [ctb, cph] (Wrote TOMS614/INTHP, https://calgo.acm.org/), F. Stenger [ctb, cph] (Wrote TOMS614/INTHP, https://calgo.acm.org/), J. Schwing [ctb, cph] (Wrote TOMS614/INTHP, https://calgo.acm.org/)",
-      "Maintainer": "Bruce Swihart <bruce.swihart@gmail.com>",
-      "Repository": "CRAN"
-    },
-    "rpart": {
-      "Package": "rpart",
-      "Version": "4.1.24",
-      "Source": "Repository",
-      "Priority": "recommended",
-      "Date": "2025-01-06",
-      "Authors@R": "c(person(\"Terry\", \"Therneau\", role = \"aut\", email = \"therneau@mayo.edu\"), person(\"Beth\", \"Atkinson\", role = c(\"aut\", \"cre\"), email = \"atkinson@mayo.edu\"), person(\"Brian\", \"Ripley\", role = \"trl\", email = \"ripley@stats.ox.ac.uk\", comment = \"producer of the initial R port, maintainer 1999-2017\"))",
-      "Description": "Recursive partitioning for classification,  regression and survival trees.  An implementation of most of the  functionality of the 1984 book by Breiman, Friedman, Olshen and Stone.",
-      "Title": "Recursive Partitioning and Regression Trees",
-      "Depends": [
-        "R (>= 2.15.0)",
-        "graphics",
-        "stats",
-        "grDevices"
-      ],
-      "Suggests": [
-        "survival"
-      ],
-      "License": "GPL-2 | GPL-3",
-      "LazyData": "yes",
-      "ByteCompile": "yes",
-      "NeedsCompilation": "yes",
-      "Author": "Terry Therneau [aut], Beth Atkinson [aut, cre], Brian Ripley [trl] (producer of the initial R port, maintainer 1999-2017)",
-      "Maintainer": "Beth Atkinson <atkinson@mayo.edu>",
-      "Repository": "CRAN",
-      "URL": "https://github.com/bethatkinson/rpart, https://cran.r-project.org/package=rpart",
-      "BugReports": "https://github.com/bethatkinson/rpart/issues"
-    },
     "rprojroot": {
       "Package": "rprojroot",
       "Version": "2.0.4",
@@ -5879,86 +5657,6 @@
       "Repository": "RSPM",
       "Encoding": "UTF-8"
     },
-    "spatial": {
-      "Package": "spatial",
-      "Version": "7.3-11",
-      "Source": "Repository",
-      "Priority": "recommended",
-      "Date": "2015-08-29",
-      "Depends": [
-        "R (>= 3.0.0)",
-        "graphics",
-        "stats",
-        "utils"
-      ],
-      "Suggests": [
-        "MASS"
-      ],
-      "Authors@R": "c(person(\"Brian\", \"Ripley\", role = c(\"aut\", \"cre\", \"cph\"), email = \"ripley@stats.ox.ac.uk\"), person(\"Roger\", \"Bivand\", role = \"ctb\"), person(\"William\", \"Venables\", role = \"cph\"))",
-      "Description": "Functions for kriging and point pattern analysis.",
-      "Title": "Functions for Kriging and Point Pattern Analysis",
-      "LazyLoad": "yes",
-      "ByteCompile": "yes",
-      "License": "GPL-2 | GPL-3",
-      "URL": "http://www.stats.ox.ac.uk/pub/MASS4/",
-      "NeedsCompilation": "yes",
-      "Author": "Brian Ripley [aut, cre, cph], Roger Bivand [ctb], William Venables [cph]",
-      "Maintainer": "Brian Ripley <ripley@stats.ox.ac.uk>",
-      "Repository": "CRAN"
-    },
-    "stable": {
-      "Package": "stable",
-      "Version": "1.1.6",
-      "Source": "Repository",
-      "Title": "Probability Functions and Generalized Regression Models for Stable Distributions",
-      "Authors@R": "c( person(\"Bruce\", \"Swihart\", email=\"bruce.swihart@gmail.com\", role=c(\"cre\", \"aut\")), person(\"Jim\"  , \"Lindsey\", email=\"jlindsey@gen.unimaas.nl\", role=\"aut\", comment=\"Jim created this package, Bruce is maintaining the CRAN version\"), person(\"Philippe\", \"Lambert\", email=\"phlambert@stat.ucl.ac.be\", role=\"aut\") )",
-      "Depends": [
-        "R (>= 1.4)",
-        "rmutil"
-      ],
-      "Description": "Density, distribution, quantile and hazard functions of a stable variate; generalized regression models for the parameters of a stable distribution. See the README for how to make equivalent calls to those of 'stabledist' (i.e., Nolan's 0-parameterization and  1-parameterization as detailed in Nolan (2020)).  See github for Lambert and Lindsey 1999 JRSS-C journal article,  which details the parameterization of the Buck (1995) stable.    See the Details section of the `?dstable` help file for context and  references.",
-      "License": "GPL (>= 2)",
-      "URL": "https://www.commanster.eu/rcode.html",
-      "BugReports": "https://github.com/swihart/stable/issues",
-      "Encoding": "UTF-8",
-      "LazyLoad": "true",
-      "RoxygenNote": "7.1.2",
-      "NeedsCompilation": "yes",
-      "Author": "Bruce Swihart [cre, aut], Jim Lindsey [aut] (Jim created this package, Bruce is maintaining the CRAN version), Philippe Lambert [aut]",
-      "Maintainer": "Bruce Swihart <bruce.swihart@gmail.com>",
-      "Repository": "CRAN"
-    },
-    "stabledist": {
-      "Package": "stabledist",
-      "Version": "0.7-2",
-      "Source": "Repository",
-      "Date": "2024-08-14",
-      "Title": "Stable Distribution Functions",
-      "Authors@R": "c( person(\"Diethelm\", \"Wuertz\", role=\"aut\", comment = \"original code\"), person(\"Martin\",\"Maechler\", role=c(\"aut\",\"cre\"), email=\"maechler@stat.math.ethz.ch\", comment = c(\"checks/tests; fixes, ..\", ORCID = \"0000-0002-8685-9910\")), person(\"Yohan\", \"Chalabi\", role=\"ctb\", comment= \"namespace; admin\"))",
-      "Maintainer": "Martin Maechler <maechler@stat.math.ethz.ch>",
-      "Depends": [
-        "R (>= 3.1.0)"
-      ],
-      "Imports": [
-        "stats"
-      ],
-      "Suggests": [
-        "Matrix",
-        "fBasics",
-        "FMStable",
-        "RUnit",
-        "Rmpfr",
-        "sfsmisc",
-        "libstable4u"
-      ],
-      "SuggestsNote": "'libstable4u', based on 'libstableR', is said to be uniformly better both accuracy and speed wise, at least in parts.",
-      "Description": "Density, Probability and Quantile functions, and random number generation for (skew) stable distributions, using the parametrizations of Nolan.",
-      "License": "GPL (>= 2)",
-      "URL": "https://r-forge.r-project.org/scm/viewvc.php/pkg/stabledist/?root=rmetrics",
-      "NeedsCompilation": "no",
-      "Author": "Diethelm Wuertz [aut] (original code), Martin Maechler [aut, cre] (checks/tests; fixes, .., <https://orcid.org/0000-0002-8685-9910>), Yohan Chalabi [ctb] (namespace; admin)",
-      "Repository": "CRAN"
-    },
     "stantargets": {
       "Package": "stantargets",
       "Version": "0.1.2.9000",
@@ -6016,37 +5714,6 @@
       "NeedsCompilation": "no",
       "Author": "William Michael Landau [aut, cre] (ORCID: <https://orcid.org/0000-0003-1878-3253>), Krzysztof Sakrejda [rev], Matthew T. Warkentin [rev], Eli Lilly and Company [cph]",
       "Maintainer": "William Michael Landau <will.landau.oss@gmail.com>"
-    },
-    "statip": {
-      "Package": "statip",
-      "Version": "0.2.3",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Statistical Functions for Probability Distributions and Regression",
-      "Authors@R": "c(person(\"Paul\", \"Poncet\", , \"paulponcet@yahoo.fr\", role = c(\"aut\", \"cre\")),  person(\"The R Core Team\", role = c(\"aut\", \"cph\"),  comment = \"C function 'BinDist' copied from package 'stats'\"),  person(\"The R Foundation\", role = \"cph\",  comment = \"C function 'BinDist' copied from package 'stats'\"),  person(\"Adrian\", \"Baddeley\", role = \"ctb\",  comment = \"C function 'BinDist' copied from package 'stats'\"))",
-      "Description": "A collection of miscellaneous statistical functions for  probability distributions: 'dbern()', 'pbern()', 'qbern()', 'rbern()' for  the Bernoulli distribution, and 'distr2name()', 'name2distr()' for  distribution names;  probability density estimation: 'densityfun()';  most frequent value estimation: 'mfv()', 'mfv1()';  other statistical measures of location: 'cv()' (coefficient of variation), 'midhinge()', 'midrange()', 'trimean()';  construction of histograms: 'histo()', 'find_breaks()';  calculation of the Hellinger distance: 'hellinger()';  use of classical kernels: 'kernelfun()', 'kernel_properties()';  univariate piecewise-constant regression: 'picor()'.",
-      "License": "GPL-3",
-      "LazyData": "TRUE",
-      "Depends": [
-        "R (>= 3.1.3)"
-      ],
-      "Imports": [
-        "clue",
-        "graphics",
-        "rpart",
-        "stats"
-      ],
-      "Suggests": [
-        "knitr",
-        "testthat"
-      ],
-      "URL": "https://github.com/paulponcet/statip",
-      "BugReports": "https://github.com/paulponcet/statip/issues",
-      "RoxygenNote": "7.0.0",
-      "NeedsCompilation": "yes",
-      "Author": "Paul Poncet [aut, cre], The R Core Team [aut, cph] (C function 'BinDist' copied from package 'stats'), The R Foundation [cph] (C function 'BinDist' copied from package 'stats'), Adrian Baddeley [ctb] (C function 'BinDist' copied from package 'stats')",
-      "Maintainer": "Paul Poncet <paulponcet@yahoo.fr>",
-      "Repository": "CRAN"
     },
     "stringfish": {
       "Package": "stringfish",
@@ -6663,69 +6330,6 @@
       "Author": "Hadley Wickham [aut, cre], RStudio [cph, fnd]",
       "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
       "Repository": "RSPM"
-    },
-    "timeDate": {
-      "Package": "timeDate",
-      "Version": "4041.110",
-      "Source": "Repository",
-      "Title": "Rmetrics - Chronological and Calendar Objects",
-      "Authors@R": "c(person(\"Diethelm\", \"Wuertz\", role=\"aut\", comment = \"original code\") , person(\"Tobias\", \"Setz\", role = c(\"aut\"), email = \"tobias.setz@live.com\") , person(\"Yohan\", \"Chalabi\", role = \"aut\") , person(\"Martin\",\"Maechler\", role = \"ctb\", email = \"maechler@stat.math.ethz.ch\", comment = c(ORCID = \"0000-0002-8685-9910\")) , person(given = c(\"Joe\", \"W.\"), family = \"Byers\", role = \"ctb\") , person(given = c(\"Georgi\", \"N.\"), family = \"Boshnakov\",  role = c(\"cre\", \"aut\"), email = \"georgi.boshnakov@manchester.ac.uk\") )",
-      "Description": "The 'timeDate' class fulfils the conventions of the ISO 8601  standard as well as of the ANSI C and POSIX standards. Beyond these standards it provides the \"Financial Center\" concept which allows to handle data records collected in different time  zones and mix them up to have always the proper time stamps with  respect to your personal financial center, or alternatively to the GMT reference time. It can thus also handle time stamps from historical  data records from the same time zone, even if the financial  centers changed day light saving times at different calendar dates.",
-      "Depends": [
-        "R (>= 3.6.0)",
-        "methods"
-      ],
-      "Imports": [
-        "graphics",
-        "utils",
-        "stats"
-      ],
-      "Suggests": [
-        "RUnit"
-      ],
-      "License": "GPL (>= 2)",
-      "Encoding": "UTF-8",
-      "URL": "https://geobosh.github.io/timeDateDoc/ (doc), https://r-forge.r-project.org/scm/viewvc.php/pkg/timeDate/?root=rmetrics (devel), https://www.rmetrics.org",
-      "BugReports": "https://r-forge.r-project.org/projects/rmetrics",
-      "NeedsCompilation": "no",
-      "Author": "Diethelm Wuertz [aut] (original code), Tobias Setz [aut], Yohan Chalabi [aut], Martin Maechler [ctb] (<https://orcid.org/0000-0002-8685-9910>), Joe W. Byers [ctb], Georgi N. Boshnakov [cre, aut]",
-      "Maintainer": "Georgi N. Boshnakov <georgi.boshnakov@manchester.ac.uk>",
-      "Repository": "CRAN"
-    },
-    "timeSeries": {
-      "Package": "timeSeries",
-      "Version": "4041.111",
-      "Source": "Repository",
-      "Title": "Financial Time Series Objects (Rmetrics)",
-      "Authors@R": "c(person(\"Diethelm\", \"Wuertz\", role=\"aut\", comment = \"original code\") , person(\"Tobias\", \"Setz\", role = c(\"aut\"), email = \"tobias.setz@live.com\") , person(\"Yohan\", \"Chalabi\", role = \"aut\") , person(\"Martin\",\"Maechler\", role=\"ctb\", email=\"maechler@stat.math.ethz.ch\", comment = c(ORCID = \"0000-0002-8685-9910\")) , person(given = c(\"Georgi\", \"N.\"), family = \"Boshnakov\",  role = c(\"cre\", \"aut\"), email = \"georgi.boshnakov@manchester.ac.uk\") )",
-      "Description": "'S4' classes and various tools for financial time series: Basic functions such as scaling and sorting, subsetting, mathematical operations and statistical functions.",
-      "Depends": [
-        "R (>= 2.10)",
-        "timeDate (>= 4041.110)",
-        "methods"
-      ],
-      "Imports": [
-        "graphics",
-        "grDevices",
-        "stats",
-        "utils"
-      ],
-      "Suggests": [
-        "RUnit",
-        "robustbase",
-        "xts",
-        "zoo",
-        "PerformanceAnalytics",
-        "fTrading"
-      ],
-      "LazyData": "yes",
-      "License": "GPL (>= 2)",
-      "URL": "https://geobosh.github.io/timeSeriesDoc/ (doc), https://r-forge.r-project.org/scm/viewvc.php/pkg/timeSeries/?root=rmetrics (devel), https://www.rmetrics.org",
-      "BugReports": "https://r-forge.r-project.org/projects/rmetrics",
-      "NeedsCompilation": "no",
-      "Author": "Diethelm Wuertz [aut] (original code), Tobias Setz [aut], Yohan Chalabi [aut], Martin Maechler [ctb] (<https://orcid.org/0000-0002-8685-9910>), Georgi N. Boshnakov [cre, aut]",
-      "Maintainer": "Georgi N. Boshnakov <georgi.boshnakov@manchester.ac.uk>",
-      "Repository": "CRAN"
     },
     "timechange": {
       "Package": "timechange",

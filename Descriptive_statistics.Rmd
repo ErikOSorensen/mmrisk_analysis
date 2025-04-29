@@ -14,6 +14,7 @@ library(gt)
 
 ```{r Loading data, include=FALSE}
 tar_load(decisions_complete)
+tar_load(players)
 tar_load(players_complete)
 tar_load(answers_complete)
 tar_load(answersd)
@@ -197,7 +198,7 @@ dist_test_df <- avgchoice |> mutate( g1 = cos(0.4*avgchoice/s),
                                    g3 = cos(0.8*avgchoice/s),
                                    g4 = sin(0.8*avgchoice/s)) 
 maov <- dist_test_df |>
-  manova( cbind(g1,g2,g3,g4) ~ treatment, data=.) 
+  manova( cbind(g1,g2,g3,g4) ~ treatment, data=_) 
 summary(maov, test = "Hotelling-Lawley")
 ```
 

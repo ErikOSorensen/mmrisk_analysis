@@ -113,6 +113,47 @@ descriptives_on_sample_df <- function(answersd) {
     gather(key="key") %>%
     group_by(key) %>% 
     summarize(meanX = mean(value, na.rm=TRUE), seX = se(value),
-              sdX = sd(value, na.rm=TRUE), sesdX = sesd(value)) %>%
-    knitr::kable(digits=3)
+              sdX = sd(value, na.rm=TRUE), sesdX = sesd(value)) 
+}
+
+hyper_params_df <- function(names, now, short, long, never) {
+  now_l <- now |> dplyr::select(names) |> mutate(treatment="Now")
+  short_l <- short |> dplyr::select(names) |> mutate(treatment="Short")
+  long_l <- long |> dplyr::select(names) |> mutate(treatment="Long")
+  never_l <- never |> dplyr::select(names) |> mutate(treatment="Never")
+  hyper_parameters <- list(now_l, short_l, long_l, never_l) |> 
+    bind_rows() |>
+    mutate(treatment = factor(treatment, levels=c("Now","Short","Long","Never"))) |>
+    pivot_longer(cols=names) |> 
+    mutate(name=factor(name, levels=names))
+  hyper_parameters
+}
+
+
+prior_densities_df <- function(names) {
+  x_vals <- seq(-4, 4, length.out = 1000)
+  dhalfcauchy <- function(x, location = 0, scale = 1) {
+    ifelse(x >= location, 
+           2 * dcauchy(x, location = location, scale = scale),
+           0)
+  }
+  prior_density_df <- expand.grid(
+    value = x_vals,
+    treatment = factor(c("Now", "Short","Long","Never", levels=c("Now","Short","Long","Never"))),
+    name = names
+  ) %>%
+    mutate(
+      density = case_when(
+        name == "alpha_mu"  ~ dnorm(value, mean = 0, sd = 1),
+        name == "alpha_sigma" ~ dhalfcauchy(value, 0, 1),
+        name == "beta_mu"  ~ dnorm(value, mean = 0, sd = 1),
+        name == "beta_sigma" ~ dhalfcauchy(value, 0, 1),
+        name == "rho_mu"  ~ dnorm(value, mean = 0, sd = 1),
+        name == "rho_sigma" ~ dhalfcauchy(value, 0, 1),
+        name == "lambda_mu"  ~ dnorm(value, mean = -2, sd = 1),
+        name == "lambda_sigma" ~ dhalfcauchy(value, 0, 1),
+        TRUE ~ NA_real_
+      )
+    )
+  prior_density_df
 }
