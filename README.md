@@ -27,9 +27,10 @@ The data collected for this study are in the public domain and available (with d
   of uncertainty revelation matter?", https://doi.org/10.7910/DVN/YCRFK1,
   Harvard Dataverse, V1, UNF:6:sCMtQj9J2avn/5NgCFS3vg== [fileUNF]
 
-The code for running the online experiment and collecting this data is available at github,
+The code for running the online experiment and collecting this data is available at Zenodo,
 
-- Sørensen, E. Ø., & Xu, X. (2025). MMRISK instrument (submission). Zenodo. https://doi.org/10.5281/zenodo.15297374
+- Sørensen, E. Ø., & Xu, X. (2025). MMRISK instrument (submission). Zenodo. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15297374.svg)](https://doi.org/10.5281/zenodo.15297374)
+
 
 For comparison of our data to the population, we also use reference numbers on the Norwegian population. We provide this data in the replication package.
 
