@@ -36,3 +36,5 @@ _targets/
 # No need for a html-readme.
 README.html
 plain
+logs/
+stan_output/
