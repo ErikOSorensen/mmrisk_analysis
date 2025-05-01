@@ -117,10 +117,10 @@ descriptives_on_sample_df <- function(answersd) {
 }
 
 hyper_params_df <- function(names, now, short, long, never) {
-  now_l <- now |> dplyr::select(all_of(names)) |> mutate(treatment="Now")
-  short_l <- short |> dplyr::select(all_of(names)) |> mutate(treatment="Short")
-  long_l <- long |> dplyr::select(all_of(names)) |> mutate(treatment="Long")
-  never_l <- never |> dplyr::select(all_of(names)) |> mutate(treatment="Never")
+  now_l <- now |> dplyr::select(all_of(names)) |> mutate(treatment="Now", replication=row_number())
+  short_l <- short |> dplyr::select(all_of(names)) |> mutate(treatment="Short", replication=row_number())
+  long_l <- long |> dplyr::select(all_of(names)) |> mutate(treatment="Long", replication=row_number())
+  never_l <- never |> dplyr::select(all_of(names)) |> mutate(treatment="Never", replication=row_number())
   hyper_parameters <- list(now_l, short_l, long_l, never_l) |> 
     bind_rows() |>
     mutate(treatment = factor(treatment, levels=c("Now","Short","Long","Never"))) |>
