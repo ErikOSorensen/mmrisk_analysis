@@ -91,7 +91,7 @@ pAB <- postAB |> ggplot(aes(x=value)) +
   geom_line(
     data = preAB_limited,
     aes(x = value, y = 0.2*density),
-    color = "darkgrey",
+    color = "red",
     linetype = "dashed",
     size = 1
   ) +
@@ -102,6 +102,40 @@ pAB <- postAB |> ggplot(aes(x=value)) +
 pAB
 ggsave(here::here("graphs","posteriors_AB.pdf"), width=22, height = 16, units = "cm")
 ```
+
+## Looking at the Prelec function
+
+# Looking at the Prelec functions
+
+```{r Weighting functions, echo=FALSE}
+plotdf <- posterior_draws |>
+  filter(treatment=="Short") |>
+  pivot_wider(id_cols = "replication", names_from="name", values_from = value) |>
+  mutate(median_alpha_mu = median(alpha_mu),
+            median_alpha_sigma = median(alpha_sigma),
+            median_beta_mu = median(beta_mu),
+            median_beta_sigma = median(beta_sigma)) |>
+  sample_n(500) |>
+  transmute(alpha = exp(rnorm(n(),median_alpha_mu,median_alpha_sigma)),
+            beta  = exp(rnorm(n(),median_beta_mu,median_beta_sigma)),
+            i = row_number()) |> 
+  full_join( as_tibble( expand.grid(i=1:500, p = seq(0,1,0.01)))) |>
+  mutate(w = exp( - beta * (( - log(p))^alpha)))
+weighting_functions <- plotdf |> 
+  ggplot(aes(x=p, y=w) ) + 
+  geom_line(aes(group=i), size=1/2, alpha=0.2) + 
+  stat_function(fun = function(x) x, size=2) +  
+  stat_function(fun = function(x) exp( - median(plotdf$beta)*(( - log(x))^median(plotdf$alpha))),
+                size=3, color="red") + 
+  theme_minimal() +
+  scale_x_continuous(breaks=c(0,0.17, 0.33, 0.50, 0.67, 0.83, 1)) +
+  theme_bw() + xlab("Probability") + ylab("Probability weight (treatment \"Short\")")
+weighting_functions
+ggsave(here::here("graphs","weighting_functions.pdf"), width=16, height = 10, units="cm")
+```
+
+
+
 
 ## For risk aversion and random utility
 
@@ -135,7 +169,7 @@ pRL <- postRL |> ggplot(aes(x=value)) +
   geom_line(
     data = preRL_limited,
     aes(x = value, y = 0.2*density),
-    color = "darkgrey",
+    color = "red",
     linetype = "dashed",
     size = 1
   ) +

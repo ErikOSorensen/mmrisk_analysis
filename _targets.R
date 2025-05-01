@@ -13,7 +13,6 @@ tar_option_set(packages = c("tidyverse","dataverse","here", "rstan",
                             "fastDummies", "bootstrap", "gt"))
 
 DATAVERSE_SERVER = "dataverse.harvard.edu"
-DATA_DOI <- "10.7910/DVN/YCRFK1"
 
 tar_option_set(seed = 912324641)
 

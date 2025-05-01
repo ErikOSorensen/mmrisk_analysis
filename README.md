@@ -72,17 +72,11 @@ Saving all stan outputs, about 35 GB memory is needed. As written, the program t
 | Figure 2     | Design illustration, no data | NA | NA |
 | Figure 3     | big_histogram.pdf  |  Descriptive_statistics.Rmd     | Distribution of choices  | 
 | Figure 4     | avgchoice_by_treatment.pdf  | Descriptive_statistics.Rmd      | Graph of average outcomes    |
-| Figure 5     |                      |       |     |
-| Figure 6     |                      |        |      |
-| Figure 7     |                      |        |      |
+| Figure 5     | posteriors_AB.pdf    | Results.Rmd  | Posterior alpha and beta dists    |
+| Figure 6     | weighting_functions.pdf | Results.Rmd | Weighting functions  |
+| Figure 7     | posteriors_RL.pdf |  Results.Rmd   | Posterior lambda and rho dists     |
 | Figure A1    | Traceplot_now.pdf  | Traceplots.Rmd | Traceplot: Treatment Now |
 | Figure A2    | Traceplot_short.pdf  | Traceplots.Rmd | Traceplot: Treatment Short |
 | Figure A3    | Traceplot_long.pdf  | Traceplots.Rmd | Traceplot: Treatment Long |
 | Figure A4    | Traceplot_never.pdf  | Traceplots.Rmd | Traceplot: Treatment Never |
-
-
-
-
-
-## 5. References
 
