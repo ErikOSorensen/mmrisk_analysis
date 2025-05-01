@@ -1,3 +1,4 @@
+renv::restore()
 # Load pipeline definitions
 source("_targets.R")
 

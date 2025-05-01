@@ -182,7 +182,7 @@ list(
                                                 "lambda_mu","lambda_sigma",
                                                 "rho_mu","rho_sigma")),
   tar_target(prior_densities, prior_densities_df(hyper_params_name)),
-  tar_target(posterior_draws, hyper_params_df(names, 
+  tar_target(posterior_draws, hyper_params_df(hyper_params_name, 
                                               fit_dl_now_draws,
                                               fit_dl_short_draws,
                                               fit_dl_long_draws,
