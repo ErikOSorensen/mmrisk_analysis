@@ -158,8 +158,8 @@ dist_prop_lottery_choice <- decisions_complete |>
   ggplot() + 
   geom_histogram(aes(avgchoice, (..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..]),   
                  bins=29) + 
-  facet_wrap(.~treatment) + theme_minimal() + ylab("Fraction") +
-  xlab("Fraction of situations the lottery was chosen")
+  facet_wrap(.~treatment) + theme_minimal() + ylab("Proportion") +
+  xlab("Proportion of situations in which the lottery was chosen")
 dist_prop_lottery_choice
 ggsave(here::here("graphs","avgchoice_by_treatment.pdf"), width=16, height = 10, units="cm")
 

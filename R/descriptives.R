@@ -9,7 +9,7 @@ big_histogram <- function(dframe, pframe, dies) {
     ggplot(aes(x=factor(safe_alternative), y=share)) + 
     geom_bar(stat="identity") + 
     facet_grid(treatment~die, scales="free_x") + 
-    xlab("Safe alternative") + ylab("Share that chose the lottery") +
+    xlab("Safe alternative (for each of the 10 dice)") + ylab("Proportion that chose the lottery") +
     theme_minimal()
 }
 
