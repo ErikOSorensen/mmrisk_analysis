@@ -1,0 +1,38 @@
+---
+title: "Summaries on estimation chains"
+author: "Erik Ø. Sørensen"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(targets)
+library(tidyverse)
+library(gt)
+```
+
+
+```{r include=FALSE}
+tar_load(c("fit_dl_now_sum", "fit_dl_short_sum","fit_dl_long_sum","fit_dl_never_sum"))
+```
+
+## Now
+```{r}
+fit_dl_now_sum |> gt() |> fmt_number(decimals = 3)
+```
+
+## Short
+```{r}
+fit_dl_short_sum |> gt() |> fmt_number(decimals = 3)
+```
+
+## Long
+```{r}
+fit_dl_long_sum |> gt() |> fmt_number(decimals = 3)
+```
+
+## Now
+```{r}
+fit_dl_never_sum |> gt() |> fmt_number(decimals = 3)
+```
