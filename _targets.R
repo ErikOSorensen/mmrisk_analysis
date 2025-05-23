@@ -80,8 +80,8 @@ list(
       model <- cmdstanr::cmdstan_model(stan_file, cpp_options = list(stan_threads = TRUE))
       model$sample(
         data = dl_now,
-        iter_warmup = 3000,
-        iter_sampling = 3000,
+        iter_warmup = 6000,
+        iter_sampling = 6000,
         chains = 4,
         parallel_chains = 4,
         threads_per_chain = 1,
@@ -105,8 +105,8 @@ list(
       model <- cmdstanr::cmdstan_model(stan_file, cpp_options = list(stan_threads = TRUE))
       model$sample(
         data = dl_short,
-        iter_warmup = 3000,
-        iter_sampling = 3000,
+        iter_warmup = 6000,
+        iter_sampling = 6000,
         chains = 4,
         parallel_chains = 4,
         threads_per_chain = 1,
@@ -130,8 +130,8 @@ list(
       model <- cmdstanr::cmdstan_model(stan_file, cpp_options = list(stan_threads = TRUE))
       model$sample(
         data = dl_long,
-        iter_warmup = 3000,
-        iter_sampling = 3000,
+        iter_warmup = 6000,
+        iter_sampling = 6000,
         chains = 4,
         parallel_chains = 4,
         threads_per_chain = 1,
@@ -155,8 +155,8 @@ list(
       model <- cmdstanr::cmdstan_model(stan_file, cpp_options = list(stan_threads = TRUE))
       model$sample(
         data = dl_never,
-        iter_warmup = 3000,
-        iter_sampling = 3000,
+        iter_warmup = 6000,
+        iter_sampling = 6000,
         chains = 4,
         parallel_chains = 4,
         threads_per_chain = 1,
@@ -164,10 +164,6 @@ list(
       )
     }
   ),
-  tar_target(fit_dl_now_summary, fit_dl_now$summary()),
-  tar_target(fit_dl_short_summary, fit_dl_short$summary()),
-  tar_target(fit_dl_long_summary, fit_dl_long$summary()),
-  tar_target(fit_dl_never_summary, fit_dl_never$summary()),
   # Posterior draws (optional, but useful)
   tar_target(fit_dl_now_draws, fit_dl_now$draws(format = "df")),
   tar_target(fit_dl_short_draws, fit_dl_short$draws(format = "df")),

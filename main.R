@@ -2,12 +2,10 @@ renv::restore()
 # Load pipeline definitions
 source("_targets.R")
 
-# Optional: full reset (uncomment if needed)
-
-
 # Parallel backend
 library(future)
-plan(multicore)
+plan("multisession")
 # Run pipeline
 #tar_destroy(destroy="all")
-tar_make_future(workers = 30, callr_function = NULL)
+tar_make_future(c("fit_dl_now", "fit_dl_short", "fit_dl_long","fit_dl_never")", workers = 32, callr_function = NULL)
+tar_make(c("Traceplots","Results"))))
