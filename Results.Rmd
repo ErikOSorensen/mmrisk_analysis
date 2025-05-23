@@ -73,17 +73,29 @@ postAB <- posterior_draws |>
     names_from = name,
     values_from = value
   ) |>
-  mutate( mean_alpha = exp(alpha_mu + 0.5*alpha_sigma^2),
-          mean_beta = exp(beta_mu + 0.5*beta_sigma^2)) |>
   pivot_longer(
     cols = -c("treatment","replication"),       
     names_to = "name",      
     values_to = "value"    
   ) 
-x_limits_df <- postAB |>
+ABdraws_median <- postAB |> group_by(treatment, name) |> summarize(mdn = median(value)) |> separate(name, into = c("pname", "vname"), sep = "_") %>%
+  pivot_wider(
+    names_from = vname,
+    values_from = mdn
+  ) |> 
+  mutate(value = map2(mu, sigma, ~ rlnorm(100000, meanlog = .x, sdlog = .y))) %>%
+  unnest(value) |> 
+  group_by(treatment, pname) |> 
+  mutate(p95 = quantile(value,0.95)) |>
+  filter(value <= p95) |>
+  rename(name=pname) |>
+  dplyr::select(-c("mu","sigma","p95"))
+postAB <- postAB |> bind_rows(ABdraws_median) |> mutate(name = factor(name, levels = c("alpha_mu","alpha_sigma","beta_mu","beta_sigma","alpha","beta")))
+
+x_limits_df <- postAB |> 
   group_by(treatment, name) |>
   summarize(xmin = min(value), xmax = max(value), .groups = "drop")
-preAB_limited <- preAB |>
+preAB_limited <- preAB |> 
   inner_join(x_limits_df, by = c("treatment", "name")) |>
   filter(value >= xmin, value <= xmax)
 pAB <- postAB |> ggplot(aes(x=value)) +
@@ -140,34 +152,48 @@ ggsave(here::here("graphs","weighting_functions.pdf"), width=16, height = 10, un
 ## For risk aversion and random utility
 
 ```{r Posterior lambda and rho dists, echo=FALSE}
-preRL <- prior_densities |> 
+preLR <- prior_densities |> 
     filter(str_starts(name, "rho") | str_starts(name, "lambda")) 
-postRL <- posterior_draws |> 
+
+postLR <- posterior_draws |> 
   dplyr::select(c("treatment", "replication","name", "value")) |>
-  filter(str_starts(name, "rho") | str_starts(name, "lambda")) |>
+  filter(str_starts(name, "lambda") | str_starts(name, "rho")) |>
   pivot_wider(
     id_cols = c("treatment","replication"),
     names_from = name,
     values_from = value
   ) |>
-  mutate( mean_rho = exp(rho_mu + 0.5*rho_sigma^2),
-          mean_lambda = exp(lambda_mu + 0.5*lambda_sigma^2)) |>
   pivot_longer(
     cols = -c("treatment","replication"),       
     names_to = "name",      
     values_to = "value"    
+  ) 
+LRdraws_median <- postLR |> group_by(treatment, name) |> summarize(mdn = median(value)) |> separate(name, into = c("pname", "vname"), sep = "_") %>%
+  pivot_wider(
+    names_from = vname,
+    values_from = mdn
   ) |> 
-  mutate(name = factor(name, levels = c("lambda_mu", "lambda_sigma", "rho_mu", "rho_sigma", "mean_lambda", "mean_rho")))
-x_limits_df <- postRL |>
+  mutate(value = map2(mu, sigma, ~ rlnorm(100000, meanlog = .x, sdlog = .y))) %>%
+  unnest(value) |> 
+  group_by(treatment, pname) |> 
+  mutate(p95 = quantile(value,0.95)) |>
+  filter(value <= p95) |>
+  rename(name=pname) |>
+  dplyr::select(-c("mu","sigma","p95"))
+postLR <- postLR |> bind_rows(LRdraws_median) |> mutate(name = factor(name, levels = c("lambda_mu","lambda_sigma","rho_mu","rho_sigma","lambda","rho")))
+
+
+
+x_limits_df <- postLR |>
   group_by(treatment, name) |>
   summarize(xmin = min(value), xmax = max(value), .groups = "drop")
-preRL_limited <- preRL |>
+preLR_limited <- preLR |>
   inner_join(x_limits_df, by = c("treatment", "name")) |>
   filter(value >= xmin, value <= xmax)
-pRL <- postRL |> ggplot(aes(x=value)) +
+pLR <- postLR |> ggplot(aes(x=value)) +
   geom_histogram(  aes(x = value, y = (..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..]) , bins=30) +
   geom_line(
-    data = preRL_limited,
+    data = preLR_limited,
     aes(x = value, y = 0.2*density),
     color = "red",
     linetype = "dashed",
@@ -177,7 +203,7 @@ pRL <- postRL |> ggplot(aes(x=value)) +
   theme_minimal() +
   facet_grid(treatment ~ name, scales = "free_x") +
   labs(x ="Parameter value", y = "Proportion") 
-pRL
+pLR
 ggsave(here::here("graphs","posteriors_RL.pdf"), width=22, height = 16, units = "cm")
 ```
 
